@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="900" height="900" role="img" preserveAspectRatio="xMidYMid slice">
+<defs>
+  <linearGradient id="ga" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#C9AE6E"/><stop offset="0.5" stop-color="#A88840"/><stop offset="1" stop-color="#C9AE6E"/>
+  </linearGradient>
+  <radialGradient id="wa" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#E0A24A" stop-opacity="0.85"/>
+    <stop offset="0.55" stop-color="#E0A24A" stop-opacity="0.28"/>
+    <stop offset="1" stop-color="#E0A24A" stop-opacity="0"/>
+  </radialGradient>
+  <pattern id="lata" width="150" height="190" patternUnits="userSpaceOnUse" patternTransform="translate(0,-20)">
+    <path d="M 75.0 -20.0 C 109.1 -0.4, 130.0 29.0, 130.0 50.0 C 130.0 71.0, 109.1 100.4, 75.0 120.0 C 40.9 100.4, 20.0 71.0, 20.0 50.0 C 20.0 29.0, 40.9 -0.4, 75.0 -20.0 Z" fill="none" stroke="#A88840" stroke-opacity="0.30" stroke-width="2.4"/>
+    <path d="M 0.0 75.0 C 34.1 94.6, 55.0 124.0, 55.0 145.0 C 55.0 166.0, 34.1 195.4, 0.0 215.0 C -34.1 195.4, -55.0 166.0, -55.0 145.0 C -55.0 124.0, -34.1 94.6, 0.0 75.0 Z" fill="none" stroke="#A88840" stroke-opacity="0.30" stroke-width="2.4"/>
+    <path d="M 150.0 75.0 C 184.1 94.6, 205.0 124.0, 205.0 145.0 C 205.0 166.0, 184.1 195.4, 150.0 215.0 C 115.9 195.4, 95.0 166.0, 95.0 145.0 C 95.0 124.0, 115.9 94.6, 150.0 75.0 Z" fill="none" stroke="#A88840" stroke-opacity="0.30" stroke-width="2.4"/>
+  </pattern>
+</defs>
+<rect width="900" height="900" fill="#F4F1EC"/>
+<rect width="900" height="900" fill="url(#lata)" opacity="0.55"/>
+<circle cx="450" cy="420" r="250" fill="url(#wa)" opacity="0.5"/>
+<path d="M 450.0 185.0 C 561.6 250.8, 630.0 349.5, 630.0 420.0 C 630.0 490.5, 561.6 589.2, 450.0 655.0 C 338.4 589.2, 270.0 490.5, 270.0 420.0 C 270.0 349.5, 338.4 250.8, 450.0 185.0 Z" fill="#F4F1EC" opacity="0.96"/>
+<path d="M 450.0 185.0 C 561.6 250.8, 630.0 349.5, 630.0 420.0 C 630.0 490.5, 561.6 589.2, 450.0 655.0 C 338.4 589.2, 270.0 490.5, 270.0 420.0 C 270.0 349.5, 338.4 250.8, 450.0 185.0 Z" fill="none" stroke="url(#ga)" stroke-width="9"/>
+<path d="M 450.0 224.0 C 543.0 278.9, 600.0 361.2, 600.0 420.0 C 600.0 478.8, 543.0 561.1, 450.0 616.0 C 357.0 561.1, 300.0 478.8, 300.0 420.0 C 300.0 361.2, 357.0 278.9, 450.0 224.0 Z" fill="none" stroke="#A88840" stroke-opacity="0.45" stroke-width="2.6"/>
+<path d="M 450 512 C 450 512, 372 462, 372 410 C 372 381, 395 360, 421 360 C 438 360, 447 370, 450 375 C 453 370, 462 360, 479 360 C 505 360, 528 381, 528 410 C 528 462, 450 512, 450 512 Z" fill="#186038"/>
+<path d="M 450 545 l 0 74" stroke="#A88840" stroke-width="7" stroke-linecap="round"/>
+<circle cx="450" cy="640" r="13" fill="#A88840"/>
+<g stroke="#A88840" stroke-width="2.4" fill="none" opacity="0.9"><line x1="255" y1="742" x2="400" y2="742"/><line x1="500" y1="742" x2="645" y2="742"/></g><path d="M 450.0 719.0 C 460.5 725.4, 467.0 735.1, 467.0 742.0 C 467.0 748.9, 460.5 758.6, 450.0 765.0 C 439.5 758.6, 433.0 748.9, 433.0 742.0 C 433.0 735.1, 439.5 725.4, 450.0 719.0 Z" fill="#A88840" opacity="0.9"/>
+<rect x="0" y="842" width="900" height="58" fill="#186038"/>
+<rect x="0" y="838" width="900" height="4" fill="#A88840"/>
+</svg>

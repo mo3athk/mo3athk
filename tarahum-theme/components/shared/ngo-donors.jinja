@@ -1,0 +1,51 @@
+{#
+  Donor wall — merchant-curated.
+  Zid does not expose a live donor feed to the storefront, so this reads a list
+  setting rather than pretending to be real-time. The band hides entirely when
+  the merchant empties the list.
+#}
+{# Shipped defaults so the band renders on first activation even if the editor
+   does not apply schema defaults for list fields — the merchant replaces them
+   from the "مميزات الجمعية" group. #}
+{% set shipped_donors = [
+  {'name': _('Anonymous donor'), 'amount': '500', 'note': _('An ongoing charity')},
+  {'name': _('Anonymous donor'), 'amount': '250', 'note': _('On behalf of a parent')},
+  {'name': _('Anonymous donor'), 'amount': '100', 'note': _('Relieving hardship')},
+  {'name': _('Anonymous donor'), 'amount': '1000', 'note': _('Monthly deduction')}
+] %}
+{% set wall = settings.ngo_donors if settings.ngo_donors and settings.ngo_donors | length > 0 else shipped_donors %}
+
+{% if wall | length > 0 %}
+  <section class="tarahum-band tarahum-band--tint px-4 md:px-16">
+    <div class="theme-container">
+      <div class="tarahum-head">
+        <span class="tarahum-head__eyebrow">{{ _('Thank you') }}</span>
+        <h2>{{ settings.ngo_donors_title | default(_('Recent donors'), true) }}</h2>
+        <p>{{ settings.ngo_donors_subtitle | default(_('May God reward them — and be one of them'), true) }}</p>
+        <div class="tarahum-head__rule"></div>
+      </div>
+
+      <ul class="tarahum-donors mt-10">
+        {% for donor in wall %}
+          <li class="tarahum-donor">
+            <span
+              class="tarahum-donor__avatar"
+              aria-hidden="true"
+            >
+              {{ (donor.name | default('؟', true) | trim)[:1] }}
+            </span>
+            <span class="tarahum-donor__body">
+              <b>{{ donor.name | default(_('Anonymous donor'), true) }}</b>
+              {% if donor.note %}<span>{{ donor.note }}</span>{% endif %}
+            </span>
+            {% if donor.amount %}
+              <span class="tarahum-donor__amount">
+                {{ donor.amount }} {{ session.currency | default('SAR', true) }}
+              </span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+{% endif %}

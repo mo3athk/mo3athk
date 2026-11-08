@@ -1,0 +1,207 @@
+{#
+  Floating quick-donate — "زر التبرع السريع العائم"
+
+  Blur-parity feature: a small fixed tab pinned to the side of every page that
+  opens a dialog with a banner, amount chips, a custom amount and one CTA.
+
+  Degradation is deliberate and layered:
+  · product id configured  → chips add to the cart via window.zid.cart
+  · no product id          → chips become links to the cases page (never a dead end)
+  · JS blocked entirely    → the tab is a plain <a> to the cases page
+
+  Rendered once from layout.jinja, so it is present on all 14 templates.
+#}
+{% if settings.ngo_float_enabled | default(true, true) %}
+  {% set f_product = settings.ngo_quick_product_id | default('', true) | trim %}
+  {% set f_list = settings.ngo_float_amounts | default([], true) %}
+  {% set f_fallback = settings.ngo_quick_amounts | default([], true) %}
+  {% set f_amounts = f_list if f_list | length > 0
+     else (f_fallback if f_fallback | length > 0
+       else [{'amount': '10'}, {'amount': '50'}, {'amount': '100'}]) %}
+  {% set f_label = settings.ngo_float_label | default(_('Quick donation'), true) %}
+  {% set f_banner = settings.ngo_float_banner | default('images/quick-donate-1200x600.jpg' | asset_url, true) %}
+  {% set f_pos = settings.ngo_float_position | default('start', true) %}
+  {% set cur = session.currency | default('SAR', true) %}
+
+  <div
+    class="tarahum-float tarahum-float--{{ f_pos }}"
+    data-quick-float
+    {% if f_product %}data-product-id="{{ f_product }}"{% endif %}
+    style="--float-bg: {{ settings.ngo_float_color | default('#065751', true) }}"
+  >
+    {# The tab. Href keeps it useful with JS disabled; JS intercepts the click. #}
+    <a
+      class="tarahum-float__tab"
+      href="{{ url_for('list_products') }}"
+      data-quick-float-open
+      aria-haspopup="dialog"
+      aria-expanded="false"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"></path>
+      </svg>
+      <span>{{ f_label }}</span>
+    </a>
+
+    {# Dialog #}
+    <div
+      class="tarahum-float__backdrop"
+      data-quick-float-backdrop
+      hidden
+    ></div>
+    <div
+      class="tarahum-float__dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="tarahum-float-title"
+      data-quick-float-dialog
+      hidden
+    >
+      <div class="tarahum-float__bar">
+        <h2 id="tarahum-float-title">{{ f_label }}</h2>
+        <button
+          type="button"
+          class="tarahum-float__close"
+          data-quick-float-close
+          aria-label="{{ _('Close') }}"
+        >
+          <svg
+            viewBox="0 0 16 16"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M12 4L4 12M4 4l8 8"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="tarahum-float__body">
+        {% if f_banner %}
+          <img
+            class="tarahum-float__banner"
+            src="{{ f_banner }}"
+            alt=""
+            width="1200"
+            height="600"
+            loading="lazy"
+            onerror="this.onerror=null;this.remove();"
+          />
+        {% endif %}
+
+        {% if settings.ngo_float_message | default('', true) %}
+          <p class="tarahum-float__msg">{{ settings.ngo_float_message }}</p>
+        {% endif %}
+
+        <div class="tarahum-float__chips">
+          {% for row in f_amounts %}
+            {% set amt = row.amount | default('', true) | trim %}
+            {% if amt %}
+              {% if f_product %}
+                <button
+                  type="button"
+                  class="tarahum-chip"
+                  data-float-amount="{{ amt }}"
+                  aria-pressed="false"
+                >
+                  <b>{{ amt }}</b>
+                  <span>{{ cur }}</span>
+                </button>
+              {% else %}
+                <a
+                  class="tarahum-chip"
+                  href="{{ url_for('list_products') }}"
+                >
+                  <b>{{ amt }}</b>
+                  <span>{{ cur }}</span>
+                </a>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        {% if f_product %}
+          <div class="tarahum-float__field">
+            <label
+              class="sr-only"
+              for="tarahum-float-custom"
+            >
+              {{ _('Donation amount') }}
+            </label>
+            <input
+              id="tarahum-float-custom"
+              type="number"
+              min="1"
+              step="1"
+              inputmode="numeric"
+              placeholder="{{ _('Donation amount') }}"
+              data-float-custom
+            />
+            <span aria-hidden="true">{{ cur }}</span>
+          </div>
+
+          <button
+            type="button"
+            class="tarahum-float__cta"
+            data-float-submit
+          >
+            {{ _("Donate now") }}
+          </button>
+
+          <p
+            class="tarahum-float__error"
+            data-float-error
+            hidden
+          ></p>
+        {% else %}
+          <a
+            class="tarahum-float__cta"
+            href="{{ url_for('list_products') }}"
+          >
+            {{ _("Browse cases") }}
+          </a>
+        {% endif %}
+
+        {% if settings.ngo_float_show_payments | default(true, true) %}
+          <div class="tarahum-float__pay">
+            <span>{{ _("Available payment methods") }}</span>
+            <div>
+              <img
+                src="https://media.zid.store/static/apple_pay.svg"
+                alt="Apple Pay"
+                height="22"
+                loading="lazy"
+              />
+              <img
+                src="https://media.zid.store/static/mada-circle.png"
+                alt="mada"
+                height="22"
+                loading="lazy"
+              />
+              <img
+                src="https://media.zid.store/static/samsung_pay.png"
+                alt="Samsung Pay"
+                height="22"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}

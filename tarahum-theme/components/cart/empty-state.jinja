@@ -1,0 +1,46 @@
+{% set donation_words = settings.extras_donation_labels_enabled | default(true) %}
+
+<div class="cart-empty py-10">
+  <div class="tarahum-empty mx-auto max-w-xl">
+    <img
+      src="{{ 'images/empty-cart.svg' | asset_url }}"
+      alt=""
+      aria-hidden="true"
+      width="360"
+      height="260"
+    />
+    {# H1, not H2: when the cart is empty this is the page's only heading. #}
+    <h1>
+      {% if donation_words %}
+        {{ _("Your donation basket is empty") }}
+      {% else %}
+        {{ _("Your cart is empty") }}
+      {% endif %}
+    </h1>
+    <p>
+      {% if donation_words %}
+        {{ _("Pick a case that touches your heart — even a small amount makes a real difference.") }}
+      {% else %}
+        {{ _("Browse our collection and add what you like.") }}
+      {% endif %}
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      <a
+        href="{{ url_for('list_products') }}"
+        class="btn-donate"
+      >
+        {% if donation_words %}
+          {{ _("Browse cases") }}
+        {% else %}
+          {{ _("Continue shopping") }}
+        {% endif %}
+      </a>
+      <a
+        href="{{ url_for('list_categories') }}"
+        class="btn-donate btn-donate--ghost"
+      >
+        {{ _("Doors of giving") }}
+      </a>
+    </div>
+  </div>
+</div>

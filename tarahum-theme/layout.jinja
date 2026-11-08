@@ -1,0 +1,293 @@
+{# Global Product Card Settings #}
+{% set card_columns_desktop = settings.product_card_columns_desktop | default('4') %}
+{% set card_columns_mobile = settings.product_card_columns_mobile | default('1') %}
+{% set card_image_aspect_ratio = settings.product_card_image_aspect_ratio | default('adapt') %}
+
+<!DOCTYPE html>
+<html
+  class="no-js"
+  lang="{{ session.lang }}"
+  dir="{{ session.locale.language.direction }}"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="x-ua-compatible"
+      content="ie=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    {% vitrin_head %}
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      rel="stylesheet"
+      media="print"
+      onload="this.onload=null;this.media='all'"
+      href="https://fonts.googleapis.com/css2?family={{ settings.font_family | default('Tajawal') }}:wght@300;400;500;700;800&display=swap"
+    />
+    {#
+      Prettier ignore is needed here because the CSS contains Jinja template variables
+      which cause Prettier's PostCSS parser to fail with "Cannot read properties of undefined (reading 'raw')"
+    #}
+    <!-- prettier-ignore-start -->
+    <style>
+      :root {
+        /* Font */
+        --font-family: {{ (settings.font_family | default('Tajawal')).replace('+', ' ') }}, sans-serif;
+
+        /* ========== TARAHUM IDENTITY COLORS (Default) ========== */
+        --background: {{ settings.theme_background | default('#F7F4EE') }};
+        --foreground: {{ settings.theme_foreground | default('#14231C') }};
+        --primary: {{ settings.theme_primary | default('#065751') }};
+        --primary-foreground: {{ settings.theme_primary_foreground | default('#FFFFFF') }};
+        --secondary: {{ settings.theme_secondary | default('#EFEADF') }};
+        --muted: {{ settings.theme_muted | default('#5A6B62') }};
+        --accent: {{ settings.theme_accent | default('#A88840') }};
+        --border: {{ settings.theme_border | default('#E2DACB') }};
+        --input: {{ settings.theme_input | default('#5A6B62') }};
+        --ring: {{ settings.theme_ring | default('#065751') }};
+
+        /* ========== RADIUS ========== */
+        --radius: {{ settings.theme_radius | default(10) }}px;
+
+        /* ===== Tarahum brand extensions (sampled from the store's own artwork) ===== */
+        --brand-deep: {{ settings.theme_brand_deep | default('#0B4A40') }};
+        --brand-forest: {{ settings.theme_brand_forest | default('#186038') }};
+        --brand-gold: {{ settings.theme_accent | default('#A88840') }};
+        --brand-gold-soft: {{ settings.theme_brand_gold_soft | default('#C9AE6E') }};
+        --brand-cream: {{ settings.theme_brand_cream | default('#F4F1EC') }};
+        --brand-sand: {{ settings.theme_brand_sand | default('#E7DFCD') }};
+        --cols-mobile: {{ card_columns_mobile }};
+        --cols-desktop: {{ card_columns_desktop }};
+      }
+    </style>
+    <!-- prettier-ignore-end -->
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ 'styles.css' | asset_url }}"
+    />
+
+    {# Extras stylesheet — plain CSS, no Tailwind compile needed #}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ 'tarahum-extras.css' | asset_url }}"
+    />
+
+    {# TailwindPlus Elements - pinned version for better caching #}
+    <script
+      src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1.0.22"
+      type="module"
+    ></script>
+
+    {% if user_custom_css %}
+      <link
+        rel="stylesheet"
+        href="{{ user_custom_css }}"
+      />
+    {% endif %}
+  </head>
+  <body
+    data-template="{{ session.template }}"
+    class="min-h-dvh font-sans antialiased"
+  >
+    {% if settings.extras_splash_enabled | default(true) %}
+      {# Splash preloader — arch-framed store logo, hides on load (2.6s hard timeout) #}
+      <div
+        id="tarahum-splash"
+        class="tarahum-splash"
+        aria-hidden="true"
+      >
+        <div class="tarahum-splash__inner">
+          <div class="tarahum-splash__arch">
+            <img
+              src="{{ store.logo | default('images/logo.svg' | asset_url, true) }}"
+              alt="{{ store.name }}"
+              onerror="this.onerror=null;this.src='{{ 'images/logo.svg' | asset_url }}';"
+            />
+          </div>
+          <span class="tarahum-splash__name">{{ store.name }}</span>
+          <div class="tarahum-splash__bar"><i></i></div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% include 'header.jinja' %}
+    <main id="main">{% block content %}{% endblock %}</main>
+
+    {% include 'footer.jinja' %}
+
+    {% set wa_number = settings.extras_whatsapp_number | default('', true) %}
+    {% if wa_number %}
+      <a
+        class="tarahum-wa"
+        href="https://wa.me/{{ wa_number }}?text={{ settings.extras_whatsapp_text | default('السلام عليكم، عندي استفسار عن التبرع', true) | urlencode }}"
+        target="_blank"
+        rel="noopener"
+        aria-label="{{ _('Contact us on WhatsApp') }}"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="26"
+          height="26"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97.99-3.62-.23-.37a9.78 9.78 0 0 1-1.5-5.22c0-5.4 4.4-9.8 9.82-9.8 2.62 0 5.08 1.03 6.93 2.88a9.74 9.74 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8m8.34-18.14A11.72 11.72 0 0 0 12.05 0C5.6 0 .35 5.25.34 11.7c0 2.06.54 4.08 1.57 5.86L.24 24l6.58-1.72a11.7 11.7 0 0 0 5.23 1.24h.01c6.45 0 11.7-5.25 11.7-11.7 0-3.13-1.21-6.07-3.42-8.28" />
+        </svg>
+      </a>
+    {% endif %}
+    {# Floating quick-donate — present on every page #}
+    {% include 'components/shared/ngo-quick-donate-float.jinja' %}
+
+    {% include "vitrin:shared/region_settings_dialog.jinja" %}
+    {# Global Notify Me Dialog - for product cards on any page #}
+    {% include 'components/products/notify-me-dialog.jinja' %}
+    {# Global Quick View Modal - for product cards on any page #}
+    {% include 'components/products/quick-view-modal.jinja' %}
+    <script>
+      window.zidOpenRegionSettingDialog = () => {
+        region_settings_dialog?.open();
+      };
+    </script>
+    {# Global config scripts (must run before theme bundle) #}
+    <!-- prettier-ignore-start -->
+    <script>
+      // Layout config for header functionality
+      window.layoutConfig = {
+        profileUrl: "{{ url_for('profile') }}"
+      };
+
+      // Product translations (used by variants.js for variant changes)
+      window.productTranslations = {
+        discount: "{{ _('Discount') }}",
+        remaining: "{{ _('Remaining %s only') }}",
+        sold: "{{ settings.product_sold_label | default(_('Contributions'), true) }} %s"
+      };
+      // Tarahum NGO features: routes + translated messages for the quick-donate
+      // bar and the zakat calculator (JS must not hardcode Arabic copy).
+      window.tarahumNgo = {
+        cartUrl: "{{ url_for('cart_page') }}",
+        productsUrl: "{{ url_for('list_products') }}",
+        invalidAmount: "{{ _('Please enter a valid amount') }}",
+        addFailed: "{{ _('Could not complete the donation. Please try again.') }}",
+        belowNisab: "{{ _('Your wealth is below the nisab, so zakat is not due — but voluntary charity is always welcome.') }}",
+        totalLabel: "{{ _('Your donation:') }}",
+        amountRounded: "{{ _('Adjusted to %s to match the case unit value.') }}"
+      };
+
+      window.storeLowStockEnabled = {{ 'true' if store.settings.products.low_stock_enabled else 'false' }};
+      window.storeLowStockThreshold = {{ store.settings.products.low_stock_threshold | default(5) }};
+
+      // Notify Me translations (used by notify-me.js for stock alerts)
+      window.notifyMeTranslations = {
+        success: "{{ _('You will be notified when this product is back in stock!') }}",
+        error: "{{ _('Failed to submit. Please try again.') }}",
+        required: "{{ _('Please fill in all required fields') }}",
+        phoneRequired: "{{ _('Phone number is required') }}",
+        phoneTooShort: "{{ _('Phone number is too short') }}",
+        phoneTooLong: "{{ _('Phone number is too long') }}",
+        phoneInvalid: "{{ _('Invalid phone number') }}"
+      };
+
+      // Custom styles for Vitrin Kit Components (bundle, gift, region dialogs)
+      // These override the default styles in platform widgets
+      window.zidCustomStyles = {
+        bundle_selection: {
+          fontFamily: "var(--font-family)",
+          fontSize: "14px"
+        },
+        gift_dialog: {
+          fontFamily: "var(--font-family)",
+          fontSize: "14px",
+          primaryColor: "var(--primary)",
+          primaryForeground: "var(--primary-foreground)",
+          backgroundColor: "var(--background)",
+          borderRadius: "var(--radius)"
+        },
+        region_settings_dialog: {
+          fontFamily: "var(--font-family)",
+          fontSize: "14px",
+          primaryColor: "var(--primary)",
+          primaryForeground: "var(--primary-foreground)",
+          backgroundColor: "var(--background)",
+          borderRadius: "var(--radius)"
+        }
+      };
+    </script>
+    <!-- prettier-ignore-end -->
+
+    {# Splash preloader controller — inline so it runs without waiting for the bundle #}
+    <!-- prettier-ignore-start -->
+    <script>
+      (function () {
+        var el = document.getElementById("tarahum-splash");
+        if (!el) return;
+        // Show once per session only
+        try {
+          if (sessionStorage.getItem("tarahum_splash_seen")) {
+            el.remove();
+            return;
+          }
+          sessionStorage.setItem("tarahum_splash_seen", "1");
+        } catch (e) {
+          /* private mode — just show it */
+        }
+        var done = false;
+        function hide() {
+          if (done) return;
+          done = true;
+          el.classList.add("is-hidden");
+          setTimeout(function () {
+            el.remove();
+          }, 400);
+        }
+        window.addEventListener("load", function () {
+          setTimeout(hide, 500);
+        });
+        setTimeout(hide, 2600); // hard timeout — never block longer than this
+      })();
+    </script>
+    <!-- prettier-ignore-end -->
+
+    {# Bundled theme JS (Vite output) - includes all feature modules #}
+    <script
+      defer
+      src="{{ 'dist/theme.js' | asset_url }}"
+    ></script>
+
+    {# Extras: donation amount box + floating quick donate (standalone, unbundled) #}
+    <script
+      defer
+      src="{{ 'tarahum-extras.js' | asset_url }}"
+    ></script>
+
+    {% vitrin_body %}
+
+    {# Loyalty Rewards - loaded AFTER vitrin_body so popup is in DOM #}
+    {% if session.template not in ['product_details', 'cart_page', 'page_details'] and store.settings.checkout.is_loyalty_enabled %}
+      <script>
+        var loyalty_button_direction = "{{ session.locale.language.direction }}";
+        var text_loyalty_rewards = '{{ _("Rewards") }}';
+        var text_loyalty_options = '{{ _("For {points} get a discount {percentage}") }}';
+        var store_currency_code = "{{ session.currency }}";
+      </script>
+      <script src="{{ 'js/layout-loyalty.js' | asset_url }}"></script>
+    {% endif %}
+    {% block footer_scripts %}
+    {% endblock %}
+  </body>
+</html>

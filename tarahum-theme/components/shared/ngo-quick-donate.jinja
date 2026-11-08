@@ -1,0 +1,87 @@
+{#
+  Quick-donate bar — pick an amount and give without browsing.
+
+  When a product id is configured the chips add that product straight to the
+  cart via the platform API (window.zid.cart.addProduct) with quantity = the
+  amount, which is how Zid donation products priced at 1 SAR work. With no id
+  configured the chips degrade into links to the cases page, so the band is
+  never a dead end.
+#}
+{% set qd_product = settings.ngo_quick_product_id | default('', true) | trim %}
+{% set qd_amounts = settings.ngo_quick_amounts if settings.ngo_quick_amounts and settings.ngo_quick_amounts | length > 0
+   else [{'amount': '50'}, {'amount': '100'}, {'amount': '250'}, {'amount': '500'}] %}
+
+<section class="tarahum-band tarahum-band--deep tarahum-pattern px-4 md:px-16">
+  <div class="theme-container">
+    <div
+      class="tarahum-quick"
+      data-quick-donate
+      {% if qd_product %}data-product-id="{{ qd_product }}"{% endif %}
+    >
+      <div class="tarahum-quick__head">
+        <h2>{{ settings.ngo_quick_title | default(_('Quick donation'), true) }}</h2>
+        <p>{{ settings.ngo_quick_subtitle | default(_('Pick an amount and give in a second — no browsing needed'), true) }}</p>
+      </div>
+
+      <div class="tarahum-quick__amounts">
+        {% for row in qd_amounts %}
+          {% set amt = row.amount | default('', true) | trim %}
+          {% if amt %}
+            {% if qd_product %}
+              <button
+                type="button"
+                class="tarahum-quick__chip"
+                data-quick-amount="{{ amt }}"
+              >
+                {{ amt }} <span>{{ session.currency | default('SAR', true) }}</span>
+              </button>
+            {% else %}
+              <a
+                class="tarahum-quick__chip"
+                href="{{ url_for('list_products') }}"
+              >
+                {{ amt }} <span>{{ session.currency | default('SAR', true) }}</span>
+              </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if qd_product %}
+        <div class="tarahum-quick__custom">
+          <label
+            class="sr-only"
+            for="tarahum-quick-custom"
+          >
+            {{ _('Another amount') }}
+          </label>
+          <input
+            id="tarahum-quick-custom"
+            type="number"
+            min="1"
+            step="1"
+            inputmode="numeric"
+            placeholder="{{ _('Another amount') }}"
+            data-quick-custom
+          />
+          <button
+            type="button"
+            class="btn-donate btn-donate--gold"
+            data-quick-submit
+          >
+            {{ _('Donate now') }}
+          </button>
+        </div>
+        <p
+          class="tarahum-quick__error"
+          data-quick-error
+          hidden
+        ></p>
+      {% endif %}
+
+      {% if settings.ngo_quick_note %}
+        <p class="tarahum-quick__note">{{ settings.ngo_quick_note }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>

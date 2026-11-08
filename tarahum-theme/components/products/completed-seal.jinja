@@ -1,0 +1,37 @@
+{#
+  Completed-case seal — "بعطائكم · اكتملت فرصة التبرع"
+
+  Replaces the small corner "غير متوفر" badge, which the arch frame
+  (overflow:hidden + curved top) was clipping, so it read as "ير متوفر".
+  The seal sits in the middle of the image, clear of the curve.
+
+  Only shown on a donation store (the same wording switch that turns
+  "Add to cart" into "Donate now"); a normal shop keeps the stock badge,
+  because out-of-stock there means "coming back", not "finished".
+
+  Variables:
+  - product: object (required)
+  - compact: true on cards, false/omitted on the case page
+#}
+{% set seal_big = settings.ngo_seal_title | default(_('By your giving'), true) %}
+{% set seal_small = settings.ngo_seal_subtitle | default(_('This donation opportunity is complete'), true) %}
+{% set seal_show_store = settings.ngo_seal_show_store | default(true) %}
+
+<span
+  class="tarahum-done{{ ' tarahum-done--lg' if not compact else '' }}"
+  aria-hidden="true"
+>
+  <span class="tarahum-done__seal">
+    <span class="tarahum-done__text">
+      <b class="tarahum-done__big">{{ seal_big }}</b>
+      <span class="tarahum-done__small">{{ seal_small }}</span>
+      {% if seal_show_store and store.name %}
+        <span class="tarahum-done__store">{{ store.name }}</span>
+      {% endif %}
+    </span>
+  </span>
+  <span class="tarahum-done__bar">100%</span>
+</span>
+
+{# Screen readers get the status as text, since the seal itself is decorative #}
+<span class="sr-only">{{ seal_small }}</span>

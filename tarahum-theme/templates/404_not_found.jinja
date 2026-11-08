@@ -1,0 +1,80 @@
+{% extends "layout.jinja" %}
+
+{% block title %}{{ _("Page Not Found") }} – {{ store.name }}{% endblock %}
+
+{% block content %}
+  <section class="tarahum-band px-4 md:px-16">
+    <div class="theme-container">
+      <div class="tarahum-empty mx-auto max-w-2xl">
+        <img
+          src="{{ 'images/art-404.svg' | asset_url }}"
+          alt=""
+          aria-hidden="true"
+          width="360"
+          height="260"
+        />
+        <div class="tarahum-404__num">404</div>
+        <h1 class="text-foreground mt-4 text-xl font-extrabold tracking-tight md:text-2xl">
+          {{ _("Page Not Found") }}
+        </h1>
+        <p class="mx-auto max-w-md">
+          {{ _("This page moved or no longer exists — but the good you can do is still here.") }}
+        </p>
+
+        {# Branded redirect progress rail #}
+        <div
+          class="tarahum-rail tarahum-rail--lg mx-auto max-w-sm"
+          style="--pct: 0%"
+          data-redirect-rail
+          role="progressbar"
+          aria-label="{{ _('Heading to the homepage') }}"
+        >
+          <i></i>
+        </div>
+        <p class="text-muted mt-3 text-xs">
+          <span>{{ _("You will be redirected to the home page in") }} </span>
+          <span
+            id="redirectCountdown"
+            class="text-primary font-bold"
+          >
+            5
+          </span>
+          {{ _("seconds") }}
+        </p>
+
+        <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+          <a
+            class="btn-donate"
+            href="{{ url_for('home') }}"
+          >
+            {{ _("Back to Home") }}
+          </a>
+          <a
+            class="btn-donate btn-donate--ghost"
+            href="{{ url_for('list_products') }}"
+          >
+            {{ _("Browse cases") }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var total = 5;
+      var left = total;
+      var out = document.getElementById("redirectCountdown");
+      var rail = document.querySelector("[data-redirect-rail]");
+      var t = setInterval(function () {
+        left -= 1;
+        if (out) out.textContent = left < 0 ? 0 : left;
+        if (rail) rail.style.setProperty("--pct", ((total - left) / total) * 100 + "%");
+        if (left <= 0) {
+          clearInterval(t);
+          window.location.href = "{{ url_for('home') }}";
+        }
+      }, 1000);
+    })();
+  </script>
+{% endblock %}

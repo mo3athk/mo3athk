@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500"
+     width="1200" height="500" role="img" preserveAspectRatio="xMidYMid slice">
+
+<defs>
+  <linearGradient id="gpw" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0F6B4F"/>
+    <stop offset="0.55" stop-color="#0A4A37"/>
+    <stop offset="1" stop-color="#06301F"/>
+  </linearGradient>
+  <linearGradient id="goldpw" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#C79A3E"/>
+    <stop offset="0.5" stop-color="#E5C378"/>
+    <stop offset="1" stop-color="#C79A3E"/>
+  </linearGradient>
+  <radialGradient id="glowpw" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#E5C378" stop-opacity="0.55"/>
+    <stop offset="0.6" stop-color="#C79A3E" stop-opacity="0.14"/>
+    <stop offset="1" stop-color="#C79A3E" stop-opacity="0"/>
+  </radialGradient>
+  <pattern id="kufipw" width="34" height="34" patternUnits="userSpaceOnUse">
+    <path d="M17 3 L31 17 L17 31 L3 17 Z" fill="none"
+          stroke="#C79A3E" stroke-opacity="0.13" stroke-width="1"/>
+    <circle cx="17" cy="17" r="1.6" fill="#C79A3E" fill-opacity="0.16"/>
+  </pattern>
+</defs>
+
+  <rect width="1200" height="500" fill="#EFF3EE"/>
+  <rect width="1200" height="500" fill="url(#kufipw)"/>
+  <path d="M520.0 330.0 L520.0 207.6 Q520.0 150.0 600.0 150.0 Q680.0 150.0 680.0 207.6 L680.0 330.0 Z" fill="none" stroke="#0F6B4F" stroke-opacity="0.42" stroke-width="6.0"/>
+  <circle cx="600.0" cy="240.0" r="27.5"
+          fill="#C79A3E" fill-opacity="0.55"/>
+  <rect x="535.0" y="360.0" width="130.0"
+        height="7.0" rx="5.0" fill="#0F6B4F" fill-opacity="0.28"/>
+</svg>

@@ -1,0 +1,439 @@
+{% extends "layout.jinja" %}
+
+{% block title %}{{ store.name }} – {{ _('Home') }}{% endblock %}
+
+{% block content %}
+  <h1 class="hidden">{{ store.settings.branding.seo.title if store.settings.branding.seo and store.settings.branding.seo.title and store.settings.branding.seo.title is defined else store.name }}</h1>
+
+  {# ============================================================
+     Defaults live here, not in the schema: image/list schema defaults
+     are unverified in the editor, so the template is the contract.
+     Every band below renders fully with ZERO editor configuration.
+     ============================================================ #}
+
+  {% set shipped_slides = [
+    {
+      'image': 'images/slide-1-1500x700.jpg' | asset_url,
+      'image_mobile': 'images/slide-1-mobile-414x700.jpg' | asset_url,
+      'title': _('Your charity today is shelter for a family tomorrow'),
+      'subtitle': _('Documented cases, followed up to the last riyal.'),
+      'cta_text': _('Donate now'),
+      'url': url_for('list_products')
+    },
+    {
+      'image': 'images/slide-2-1500x700.jpg' | asset_url,
+      'image_mobile': 'images/slide-2-mobile-414x700.jpg' | asset_url,
+      'title': _('A monthly deduction, an ongoing charity'),
+      'subtitle': _('Set aside a small amount each month and we deliver it all year.'),
+      'cta_text': _('Start your deduction'),
+      'url': url_for('list_categories')
+    },
+    {
+      'image': 'images/slide-3-1500x700.jpg' | asset_url,
+      'image_mobile': 'images/slide-3-mobile-414x700.jpg' | asset_url,
+      'title': _('Quick donation, any amount'),
+      'subtitle': _('No time to browse? Give any amount and we direct it to the most urgent case.'),
+      'cta_text': _('Give quickly'),
+      'url': url_for('list_products')
+    }
+  ] %}
+
+  {% set slides = settings.home_slides if settings.home_slides and settings.home_slides | length > 0 else shipped_slides %}
+
+  {# ============================ 1. Banner slider ============================ #}
+  {% if settings.home_slider_enabled | default(true) %}
+    <section
+      class="tarahum-slider"
+      data-tarahum-slider
+      aria-roledescription="carousel"
+      aria-label="{{ _('Featured campaigns') }}"
+    >
+      <div
+        class="tarahum-slider__track"
+        data-slider-track
+      >
+        {% for slide in slides %}
+          {% set s_img = slide.image | default('images/slide-1-1500x700.jpg' | asset_url, true) %}
+          {% set s_img_m = slide.image_mobile | default(s_img, true) %}
+          <div class="tarahum-slider__slide">
+            <a
+              class="tarahum-hero block"
+              href="{{ slide.url | default(url_for('list_products'), true) }}"
+            >
+              <picture>
+                <source
+                  media="(max-width: 767px)"
+                  srcset="{{ s_img_m }}"
+                />
+                <img
+                  class="tarahum-hero__bg"
+                  src="{{ s_img }}"
+                  alt="{{ slide.title | default('', true) }}"
+                  {% if loop.index0 > 0 %}loading="lazy"{% endif %}
+                  onerror="this.onerror=null;this.src='{{ 'images/placeholder-banner.svg' | asset_url }}';"
+                />
+              </picture>
+              <span class="tarahum-hero__veil"></span>
+              <div class="theme-container px-4 md:px-16">
+                <div class="tarahum-hero__inner">
+                  {% if slide.title %}
+                    <h2 class="text-primary-foreground text-2xl leading-tight font-extrabold md:text-4xl">
+                      {{ slide.title }}
+                    </h2>
+                  {% endif %}
+                  {% if slide.subtitle %}
+                    <p>{{ slide.subtitle }}</p>
+                  {% endif %}
+                  {% if slide.cta_text %}
+                    <span class="btn-donate btn-donate--gold mt-6">{{ slide.cta_text }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      {% if slides | length > 1 %}
+        <div
+          class="tarahum-slider__dots"
+          data-slider-dots
+        ></div>
+      {% endif %}
+    </section>
+  {% endif %}
+
+  {# ============================ 2. Marquee strip ============================ #}
+  {% set marquee = settings.home_marquee_text | default(_('Your donation is a trust · Every riyal is tracked · Periodic reports · Monthly deduction from one riyal'), true) %}
+  {% if marquee %}
+    <div
+      class="tarahum-marquee"
+      aria-hidden="true"
+    >
+      <div class="tarahum-marquee__track">
+        {% for _i in range(2) %}
+          {% for _j in range(4) %}
+            <span>{{ marquee }}</span>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# ============================ 3. Brand hero band ============================ #}
+  {% set hero_img = settings.home_hero_image | default('images/hero-1500x700.jpg' | asset_url, true) %}
+  {% set hero_img_m = settings.home_hero_image_mobile | default('images/hero-mobile-414x700.jpg' | asset_url, true) %}
+  <section class="tarahum-hero tarahum-hero--light tarahum-pattern">
+    <picture>
+      <source
+        media="(max-width: 767px)"
+        srcset="{{ hero_img_m }}"
+      />
+      <img
+        class="tarahum-hero__bg"
+        src="{{ hero_img }}"
+        alt=""
+        aria-hidden="true"
+        onerror="this.onerror=null;this.src='{{ 'images/placeholder-banner.svg' | asset_url }}';"
+      />
+    </picture>
+    <span class="tarahum-hero__veil"></span>
+    <div class="theme-container px-4 md:px-16">
+      <div class="tarahum-hero__inner">
+        <span class="tarahum-badge">{{ _('A registered charitable fund') }}</span>
+        <h1 class="mt-4">{{ settings.home_hero_title | default(_('Your charity today is shelter for a family tomorrow'), true) }}</h1>
+        <p>{{ settings.home_hero_subtitle | default(_('We deliver your donation to the most needy cases, with full transparency and follow-up on every riyal.'), true) }}</p>
+        <div class="mt-7 flex flex-wrap items-center gap-3">
+          <a
+            class="btn-donate btn-donate--gold"
+            href="{{ settings.home_hero_cta_url | default(url_for('list_products'), true) }}"
+          >
+            {{ settings.home_hero_cta_text | default(_('Donate now'), true) }}
+          </a>
+          <a
+            class="btn-donate btn-donate--ghost"
+            href="{{ settings.home_hero_cta2_url | default(url_for('list_categories'), true) }}"
+          >
+            {{ settings.home_hero_cta2_text | default(_('Browse cases'), true) }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ============================ 4. Impact stats ============================ #}
+  {% if settings.home_impact_enabled | default(true) %}
+    {% set shipped_stats = [
+      {'value': '١٠٠٪', 'label': _('of your donation reaches its beneficiary')},
+      {'value': '٢٤ ساعة', 'label': _('average time to review an urgent case')},
+      {'value': '١ ريال', 'label': _('the smallest amount that starts a monthly deduction')},
+      {'value': _('Periodic'), 'label': _('transparency reports for donors')}
+    ] %}
+    {% set stats = settings.home_impact_stats if settings.home_impact_stats and settings.home_impact_stats | length > 0 else shipped_stats %}
+    <section class="tarahum-band tarahum-band--deep tarahum-pattern px-4 md:px-16">
+      <div class="theme-container">
+        <div class="tarahum-head">
+          <span class="tarahum-head__eyebrow">{{ _('Transparency') }}</span>
+          <h2>{{ settings.home_impact_title | default(_('Our impact in numbers'), true) }}</h2>
+          <div class="tarahum-head__rule"></div>
+        </div>
+        <div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {% for stat in stats %}
+            <div class="tarahum-stat">
+              <b>{{ stat.value | default('—', true) }}</b>
+              <span>{{ stat.label | default('', true) }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {# ============================ 4b. Quick donate ============================ #}
+  {% if settings.ngo_quick_enabled | default(true) %}
+    {% include 'components/shared/ngo-quick-donate.jinja' %}
+  {% endif %}
+
+  {# ============================ 5. Cases (hydrated) ============================ #}
+  <section
+    class="tarahum-band px-4 md:px-16"
+    data-mf-home-section
+    hidden
+  >
+    <div class="theme-container">
+      <div class="tarahum-head">
+        <span class="tarahum-head__eyebrow">{{ _('Open cases') }}</span>
+        <h2>{{ settings.home_cases_title | default(_('Cases waiting for your hand'), true) }}</h2>
+        <p>{{ settings.home_cases_subtitle | default(_('Every case is documented and reviewed — choose what touches your heart'), true) }}</p>
+        <div class="tarahum-head__rule"></div>
+      </div>
+      {# Which cases appear here: the merchant can point this at a category page
+         (only that category's cases show) or leave it on all products. The grid
+         clones the theme's own server-rendered cards from that page, so whatever
+         is chosen renders with the right styling and no API coupling. #}
+      {% set cases_src = settings.home_cases_source | default(url_for('list_products'), true) %}
+      <div
+        id="mf-home-products"
+        class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+        data-src="{{ cases_src }}"
+        data-max="{{ settings.home_cases_max | default(6, true) }}"
+      >
+        {% for _i in range(3) %}
+          <div class="tarahum-skel h-80"></div>
+        {% endfor %}
+      </div>
+      <div class="mt-9 text-center">
+        <a
+          class="btn-donate btn-donate--ghost"
+          href="{{ cases_src }}"
+        >
+          {{ _('View all cases') }}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {# ============================ 6. Giving doors (categories, hydrated) ============================ #}
+  <section
+    class="tarahum-band tarahum-band--tint px-4 md:px-16"
+    data-mf-home-section
+    hidden
+  >
+    <div class="theme-container">
+      <div class="tarahum-head">
+        <span class="tarahum-head__eyebrow">{{ _('Choose your door') }}</span>
+        <h2>{{ settings.home_categories_title | default(_('Doors of giving'), true) }}</h2>
+        <p>{{ settings.home_categories_subtitle | default(_('Choose the door whose reward you would like to keep flowing'), true) }}</p>
+        <div class="tarahum-head__rule"></div>
+      </div>
+      <div
+        id="mf-home-categories"
+        class="mt-10 grid grid-cols-2 gap-5 lg:grid-cols-3"
+        data-src="{{ url_for('list_categories') }}"
+        data-max="6"
+      >
+        {% for _i in range(3) %}
+          <div class="tarahum-skel aspect-square"></div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  {# ============================ 7. How to donate ============================ #}
+  {% if settings.home_steps_enabled | default(true) %}
+    {% set shipped_steps = [
+      {'title': _('Choose a case'), 'text': _('Browse the documented cases or the doors of giving and pick what suits you.')},
+      {'title': _('Set your amount'), 'text': _('Give once, or make it a monthly deduction that keeps its reward flowing.')},
+      {'title': _('Pay securely'), 'text': _('Complete the payment through secure, certified channels — and receive your receipt.')}
+    ] %}
+    {% set steps = settings.home_steps if settings.home_steps and settings.home_steps | length > 0 else shipped_steps %}
+    <section class="tarahum-band px-4 md:px-16">
+      <div class="theme-container">
+        <div class="tarahum-head">
+          <span class="tarahum-head__eyebrow">{{ _('Simple and fast') }}</span>
+          <h2>{{ settings.home_steps_title | default(_('Donate in three steps'), true) }}</h2>
+          <div class="tarahum-head__rule"></div>
+        </div>
+        <div class="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
+          {% for step in steps %}
+            <div class="tarahum-step">
+              <span class="tarahum-step__num">{{ loop.index }}</span>
+              <h3>{{ step.title | default('', true) }}</h3>
+              <p>{{ step.text | default('', true) }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {# ============================ 8. Wide promo 1 ============================ #}
+  {% set promo1 = settings.home_promo1_image | default('images/promo-1-1200x500.jpg' | asset_url, true) %}
+  <section class="px-4 pb-4 md:px-16">
+    <div class="theme-container">
+      <div class="tarahum-promo">
+        <img
+          src="{{ promo1 }}"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          onerror="this.onerror=null;this.src='{{ 'images/placeholder-wide.svg' | asset_url }}';"
+        />
+        <div class="tarahum-promo__body">
+          <h3>{{ settings.home_promo1_title | default(_('A monthly deduction — an ongoing charity that never stops'), true) }}</h3>
+          <p>{{ settings.home_promo1_text | default(_('Set aside a small amount every month and we deliver it to those who deserve it, all year long.'), true) }}</p>
+          <a
+            class="btn-donate btn-donate--gold mt-5"
+            href="{{ settings.home_promo1_url | default(url_for('list_categories'), true) }}"
+          >
+            {{ settings.home_promo1_cta | default(_('Start your deduction'), true) }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ============================ 9. Merchant-added sections ============================ #}
+  {% template_components %}
+
+  {# ============================ 10. Wide promo 2 ============================ #}
+  {% set promo2 = settings.home_promo2_image | default('images/promo-2-1200x500.jpg' | asset_url, true) %}
+  <section class="px-4 py-4 md:px-16">
+    <div class="theme-container">
+      <div class="tarahum-promo">
+        <img
+          src="{{ promo2 }}"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          onerror="this.onerror=null;this.src='{{ 'images/placeholder-wide.svg' | asset_url }}';"
+        />
+        <div class="tarahum-promo__body">
+          <h3>{{ settings.home_promo2_title | default(_('A quick donation, in an amount you choose'), true) }}</h3>
+          <p>{{ settings.home_promo2_text | default(_('No time to browse? Give any amount and we will direct it to the most urgent case.'), true) }}</p>
+          <a
+            class="btn-donate btn-donate--gold mt-5"
+            href="{{ settings.home_promo2_url | default(url_for('list_products'), true) }}"
+          >
+            {{ settings.home_promo2_cta | default(_('Give quickly'), true) }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ============================ 10b. Zakat calculator ============================ #}
+  {% if settings.ngo_zakat_enabled | default(true) %}
+    {% include 'components/shared/ngo-zakat.jinja' %}
+  {% endif %}
+
+  {# ============================ 10c. Donor wall ============================ #}
+  {% if settings.ngo_donors_enabled | default(true) %}
+    {% include 'components/shared/ngo-donors.jinja' %}
+  {% endif %}
+
+  {# ============================ 11. FAQ ============================ #}
+  {% if settings.home_faq_enabled | default(true) %}
+    {% set shipped_faqs = [
+      {'q': _('Where exactly does my donation go?'), 'a': _('Every donation is allocated to the case or door you choose, and we publish periodic reports on how the amounts were spent.')},
+      {'q': _('Can I donate monthly?'), 'a': _('Yes — the monthly deduction door lets you set an amount that is deducted regularly, starting from one riyal.')},
+      {'q': _('What payment methods are available?'), 'a': _('You can pay by Mada, credit cards and Apple Pay through certified secure payment channels.')},
+      {'q': _('Will I get a donation receipt?'), 'a': _('Yes — a receipt reaches you by email right after the donation is completed, and you can find it in your account.')},
+      {'q': _('Can I donate on behalf of someone else?'), 'a': _('Yes — you can donate on behalf of a relative, living or deceased, and note the name during checkout.')}
+    ] %}
+    {% set faqs = settings.home_faqs if settings.home_faqs and settings.home_faqs | length > 0 else shipped_faqs %}
+    <section class="tarahum-band tarahum-band--tint px-4 md:px-16">
+      <div class="theme-container">
+        <div class="tarahum-head">
+          <span class="tarahum-head__eyebrow">{{ _('Before you give') }}</span>
+          <h2>{{ settings.home_faq_title | default(_('Questions donors ask'), true) }}</h2>
+          <div class="tarahum-head__rule"></div>
+        </div>
+        <div class="mx-auto mt-10 max-w-3xl">
+          {% for item in faqs %}
+            <details class="tarahum-faq">
+              <summary>{{ item.q | default('', true) }}</summary>
+              <div class="tarahum-faq__body">{{ item.a | default('', true) }}</div>
+            </details>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {# ============================ 12. Trust row ============================ #}
+  {% set shipped_trust = [
+    {'icon': 'images/icon-shield.svg' | asset_url, 'title': _('Documented and reviewed'), 'text': _('Every case is studied and verified before it is published.')},
+    {'icon': 'images/icon-report.svg' | asset_url, 'title': _('Clear reports'), 'text': _('We publish where the donations went, periodically.')},
+    {'icon': 'images/icon-lock.svg' | asset_url, 'title': _('Secure payment'), 'text': _('Certified payment channels that protect your data.')},
+    {'icon': 'images/icon-hands.svg' | asset_url, 'title': _('It reaches its people'), 'text': _('We deliver the donation directly to the beneficiary.')}
+  ] %}
+  {% set trust = settings.home_trust_items if settings.home_trust_items and settings.home_trust_items | length > 0 else shipped_trust %}
+  <section class="tarahum-band px-4 md:px-16">
+    <div class="theme-container">
+      <div class="tarahum-head">
+        <span class="tarahum-head__eyebrow">{{ _('Trust') }}</span>
+        <h2>{{ settings.home_trust_title | default(_('Why donate with us?'), true) }}</h2>
+        <div class="tarahum-head__rule"></div>
+      </div>
+      <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {% for item in trust %}
+          <div class="tarahum-trust">
+            <span class="tarahum-trust__icon">
+              <img
+                src="{{ item.icon | default('images/icon-heart.svg' | asset_url, true) }}"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                onerror="this.onerror=null;this.src='{{ 'images/icon-heart.svg' | asset_url }}';"
+              />
+            </span>
+            <div>
+              <h3>{{ item.title | default('', true) }}</h3>
+              <p>{{ item.text | default('', true) }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  {# ============================ 13. Closing CTA ============================ #}
+  <section class="px-4 pb-16 md:px-16">
+    <div class="theme-container">
+      <div class="tarahum-cta tarahum-pattern">
+        <h2>{{ settings.home_cta_title | default(_('Do not belittle any act of kindness'), true) }}</h2>
+        <p>{{ settings.home_cta_text | default(_('One riyal from you could be the reason an entire family finds relief. Start now.'), true) }}</p>
+        <a
+          class="btn-donate btn-donate--gold"
+          href="{{ settings.home_cta_url | default(url_for('list_products'), true) }}"
+        >
+          {{ settings.home_cta_button | default(_('Donate now'), true) }}
+        </a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer_scripts %}
+  <script src="{{ 'dist/cart-controller.js' | asset_url }}"></script>
+{% endblock %}

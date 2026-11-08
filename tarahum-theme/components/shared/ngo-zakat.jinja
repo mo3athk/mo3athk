@@ -1,0 +1,87 @@
+{#
+  Zakat calculator — indicative only.
+
+  Sums the zakatable assets the donor enters, subtracts debts, compares the
+  result against the merchant-configured nisab and applies the configured rate.
+  The nisab tracks the gold price, so it is a setting rather than a constant;
+  when it is left at 0 the nisab check is skipped rather than guessed.
+#}
+{% set z_nisab = settings.ngo_zakat_nisab | default('0', true) %}
+{% set z_rate = settings.ngo_zakat_rate | default('2.5', true) %}
+
+<section class="tarahum-band px-4 md:px-16">
+  <div class="theme-container">
+    <div class="tarahum-head">
+      <span class="tarahum-head__eyebrow">{{ _('Zakat') }}</span>
+      <h2>{{ settings.ngo_zakat_title | default(_('Zakat calculator'), true) }}</h2>
+      <p>{{ settings.ngo_zakat_subtitle | default(_('Work out your zakat in a minute, and give it to those entitled to it'), true) }}</p>
+      <div class="tarahum-head__rule"></div>
+    </div>
+
+    <div
+      class="tarahum-zakat mt-10"
+      data-zakat
+      data-nisab="{{ z_nisab }}"
+      data-rate="{{ z_rate }}"
+      data-currency="{{ session.currency | default('SAR', true) }}"
+    >
+      <div class="tarahum-zakat__form">
+        {% set z_fields = [
+          {'id': 'cash',      'label': _('Cash and bank balances')},
+          {'id': 'gold',      'label': _('Value of gold and silver')},
+          {'id': 'trade',     'label': _('Value of trade goods')},
+          {'id': 'due',       'label': _('Debts owed to you and expected')},
+          {'id': 'debts',     'label': _('Debts you owe (deducted)')}
+        ] %}
+        {% for f in z_fields %}
+          <div class="tarahum-zakat__field">
+            <label for="zakat-{{ f.id }}">{{ f.label }}</label>
+            <input
+              id="zakat-{{ f.id }}"
+              type="number"
+              min="0"
+              step="any"
+              inputmode="decimal"
+              placeholder="0"
+              data-zakat-input
+              {% if f.id == 'debts' %}data-zakat-negative{% endif %}
+            />
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="tarahum-zakat__result">
+        <div class="tarahum-zakat__row">
+          <span>{{ _('Total zakatable wealth') }}</span>
+          <b data-zakat-total>0</b>
+        </div>
+        {% if z_nisab and z_nisab != '0' %}
+          <div class="tarahum-zakat__row tarahum-zakat__row--muted">
+            <span>{{ _('Nisab') }}</span>
+            <b>{{ z_nisab }}</b>
+          </div>
+        {% endif %}
+        <div class="tarahum-zakat__amount">
+          <span>{{ _('Zakat due') }} ({{ z_rate }}%)</span>
+          <b data-zakat-due>0</b>
+        </div>
+        <p
+          class="tarahum-zakat__hint"
+          data-zakat-hint
+          hidden
+        ></p>
+        <a
+          class="btn-donate btn-donate--gold w-full justify-center"
+          data-zakat-cta
+          href="{{ settings.ngo_zakat_cta_url | default(url_for('list_products'), true) }}"
+        >
+          {{ settings.ngo_zakat_cta_text | default(_('Donate your zakat'), true) }}
+        </a>
+      </div>
+    </div>
+
+    {% if settings.ngo_zakat_note %}
+      <p class="tarahum-zakat__note">{{ settings.ngo_zakat_note }}</p>
+    {% endif %}
+  </div>
+</section>

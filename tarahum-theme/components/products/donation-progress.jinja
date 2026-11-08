@@ -1,0 +1,81 @@
+{#
+  Donation progress — "شريط الأثر"
+
+  The signature component of the Tarahum theme. Renders the collection progress
+  for the two product classes this store actually sells:
+    · donation_item        → units (total / purchased / remaining)
+    · crowdfunding_project → amounts (goal / collected / remaining)
+
+  Every field is read defensively: the storefront context may not expose `meta`
+  on every plan or product class, and undefined variables now raise visible
+  errors in preview. When nothing is available the component renders NOTHING —
+  it never shows an empty rail or a zeroed bar.
+
+  Variables:
+  - product: object (required)
+  - size: 'sm' (card) | 'lg' (product page) — optional, default 'sm'
+#}
+{% set rail_size = size | default('sm') %}
+{% set pmeta = product.meta if product.meta is defined and product.meta else none %}
+
+{% if pmeta %}
+  {# --- crowdfunding project: money-based --- #}
+  {% set goal = pmeta.project_goal_amount if pmeta.project_goal_amount is defined and pmeta.project_goal_amount else none %}
+  {% set collected = pmeta.project_collected_amount if pmeta.project_collected_amount is defined and pmeta.project_collected_amount is not none else none %}
+  {% set proj_pct = pmeta.project_progress_percentage if pmeta.project_progress_percentage is defined and pmeta.project_progress_percentage is not none else none %}
+
+  {# --- donation item: unit-based --- #}
+  {% set units_total = pmeta.total_units if pmeta.total_units is defined and pmeta.total_units else none %}
+  {% set units_done = pmeta.purchased_units if pmeta.purchased_units is defined and pmeta.purchased_units is not none else none %}
+  {% set unit_pct = pmeta.progress_percentage if pmeta.progress_percentage is defined and pmeta.progress_percentage is not none else none %}
+
+  {% set show_bar = pmeta.show_progress_bar if pmeta.show_progress_bar is defined else false %}
+  {% set show_pct = pmeta.show_progress_percentage if pmeta.show_progress_percentage is defined else false %}
+  {% set show_collected = pmeta.show_collected_amount if pmeta.show_collected_amount is defined else false %}
+  {% set show_units = pmeta.show_purchased_units if pmeta.show_purchased_units is defined else false %}
+
+  {% set is_project = goal is not none %}
+  {% set pct = proj_pct if is_project else unit_pct %}
+
+  {% if show_bar and pct is not none %}
+    {% set pct_clamped = 100 if pct > 100 else (0 if pct < 0 else pct) %}
+    {% set cur = product.currency_symbol | default(session.currency, true) | trim %}
+    <div class="mt-3">
+      {# The rail carries the percentage inside the filled part. #}
+      <div
+        class="tarahum-rail{{ ' tarahum-rail--lg' if rail_size == 'lg' else '' }}"
+        style="--pct: {{ pct_clamped }}%"
+        role="progressbar"
+        aria-valuenow="{{ pct_clamped | round(0, 'floor') | int }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-label="{{ _('Collection progress') }}"
+      >
+        <i><b>{{ pct_clamped | round(1) }}%</b></i>
+      </div>
+
+      {# Below the rail: donated on the start side, target on the end side. #}
+      <div class="tarahum-rail-meta">
+        {% if is_project %}
+          <span>
+            {{ _("Donated so far") }}
+            <b>{{ collected | default(0, true) }} {{ cur }}</b>
+          </span>
+          <span>
+            {{ _("of a total of") }}
+            <b>{{ goal }} {{ cur }}</b>
+          </span>
+        {% else %}
+          <span>
+            {{ _("Donated so far") }}
+            <b>{{ units_done | default(0, true) }}</b>
+          </span>
+          <span>
+            {{ _("of a total of") }}
+            <b>{{ units_total | default(0, true) }}</b>
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+{% endif %}

@@ -1,0 +1,699 @@
+/* ==========================================================================
+   Tarahum — extras stylesheet
+   --------------------------------------------------------------------------
+   Plain CSS on purpose: it is loaded directly by layout.jinja with its own
+   <link>, so it needs no Tailwind compile step and survives upstream updates.
+   Everything here reads the theme's own CSS variables, so the merchant's
+   colour choices in the Theme Editor still drive it.
+
+   Contents
+     1. Donation amount box   (case page — "مبلغ التبرع")
+     2. Floating quick donate (all pages — "التبرع السريع")
+     3. Shared chip styling
+   ========================================================================== */
+
+/* ------------------------------------------------------------- 3. chips --- */
+
+.tarahum-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  padding: 0.55rem 1.05rem;
+  border: 1.5px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  background: var(--background);
+  color: var(--foreground);
+  font: inherit;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    border-color 0.16s ease,
+    background-color 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease;
+  text-decoration: none;
+}
+
+.tarahum-chip b {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.tarahum-chip span {
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.tarahum-chip:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.tarahum-chip[aria-pressed="true"] {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: 0 2px 10px -2px color-mix(in srgb, var(--primary) 55%, transparent);
+}
+
+.tarahum-chip[aria-pressed="true"] span {
+  opacity: 0.9;
+}
+
+/* --------------------------------------------- 1. donation amount box ----- */
+
+.tarahum-amounts {
+  border: 1.5px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  background: color-mix(in srgb, var(--brand-cream, #f4f1ec) 65%, var(--background));
+  padding: 0.9rem 1rem 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.tarahum-amounts__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.tarahum-amounts__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary);
+  position: relative;
+  padding-inline-start: 0.7rem;
+}
+
+/* small gold tick — the identity mark reused across the theme */
+.tarahum-amounts__title::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 50%;
+  width: 3px;
+  height: 0.9em;
+  transform: translateY(-50%);
+  border-radius: 2px;
+  background: var(--brand-gold, var(--accent));
+}
+
+.tarahum-amounts__total {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.tarahum-amounts__total b {
+  color: var(--foreground);
+}
+
+.tarahum-amounts__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tarahum-amounts__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tarahum-amounts__field input {
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  padding-inline-end: 3rem;
+  border: 1.5px solid var(--border);
+  border-radius: calc(var(--radius) + 2px);
+  background: var(--background);
+  color: var(--foreground);
+  font: inherit;
+}
+
+.tarahum-amounts__field input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
+  border-color: var(--ring);
+}
+
+/* hide the number spinners — the chips are the primary control */
+.tarahum-amounts__field input::-webkit-outer-spin-button,
+.tarahum-amounts__field input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.tarahum-amounts__field input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.tarahum-amounts__field > span {
+  position: absolute;
+  inset-inline-end: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.tarahum-amounts__hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* When the amount box drives the quantity, the raw quantity row is redundant. */
+.tarahum-qty-hidden {
+  display: none !important;
+}
+
+/* ------------------------------------------- 2. floating quick donate ----- */
+
+.tarahum-float {
+  --float-bg: var(--primary);
+}
+
+.tarahum-float__tab {
+  position: fixed;
+  top: 42%;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  background: var(--float-bg);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 6px 20px -6px rgb(0 0 0 / 35%);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.tarahum-float--start .tarahum-float__tab {
+  inset-inline-start: 0;
+  border-start-end-radius: calc(var(--radius) + 8px);
+  border-end-end-radius: calc(var(--radius) + 8px);
+}
+
+.tarahum-float--end .tarahum-float__tab {
+  inset-inline-end: 0;
+  border-start-start-radius: calc(var(--radius) + 8px);
+  border-end-start-radius: calc(var(--radius) + 8px);
+}
+
+.tarahum-float__tab:hover {
+  box-shadow: 0 10px 26px -6px rgb(0 0 0 / 45%);
+}
+
+.tarahum-float--start .tarahum-float__tab:hover {
+  transform: translateX(2px);
+}
+
+[dir="rtl"] .tarahum-float--start .tarahum-float__tab:hover {
+  transform: translateX(-2px);
+}
+
+.tarahum-float__tab svg {
+  flex: none;
+}
+
+/* On small screens the tab drops to a compact pill above the WhatsApp button */
+@media (max-width: 640px) {
+  .tarahum-float__tab {
+    top: auto;
+    bottom: 5.6rem;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.8rem;
+    border-radius: calc(var(--radius) + 8px);
+  }
+
+  .tarahum-float--start .tarahum-float__tab {
+    inset-inline-start: 0.9rem;
+  }
+
+  .tarahum-float--end .tarahum-float__tab {
+    inset-inline-end: 0.9rem;
+  }
+}
+
+.tarahum-float__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgb(11 32 26 / 55%);
+  backdrop-filter: blur(2px);
+  animation: tarahum-fade 0.18s ease;
+}
+
+.tarahum-float__dialog {
+  position: fixed;
+  z-index: 71;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(94vw, 26rem);
+  max-height: 90dvh;
+  overflow: auto;
+  background: var(--background);
+  color: var(--foreground);
+  border-radius: calc(var(--radius) + 8px);
+  box-shadow: 0 24px 60px -12px rgb(0 0 0 / 45%);
+  animation: tarahum-pop 0.2s ease;
+}
+
+@keyframes tarahum-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes tarahum-pop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -46%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarahum-float__backdrop,
+  .tarahum-float__dialog {
+    animation: none;
+  }
+}
+
+.tarahum-float__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tarahum-float__bar h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.tarahum-float__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tarahum-float__close:hover {
+  background: var(--secondary);
+  color: var(--foreground);
+}
+
+.tarahum-float__body {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1.1rem;
+}
+
+.tarahum-float__banner {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  border-radius: calc(var(--radius) + 2px);
+  display: block;
+}
+
+.tarahum-float__msg {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.tarahum-float__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tarahum-float__chips .tarahum-chip {
+  flex: 1 1 5rem;
+  justify-content: center;
+}
+
+.tarahum-float__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tarahum-float__field input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  padding-inline-end: 3rem;
+  border: 1.5px solid var(--border);
+  border-radius: calc(var(--radius) + 2px);
+  background: var(--background);
+  color: var(--foreground);
+  font: inherit;
+}
+
+.tarahum-float__field input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
+  border-color: var(--ring);
+}
+
+.tarahum-float__field input::-webkit-outer-spin-button,
+.tarahum-float__field input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.tarahum-float__field input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.tarahum-float__field > span {
+  position: absolute;
+  inset-inline-end: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.tarahum-float__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.9rem;
+  padding: 0 1.2rem;
+  border: 0;
+  border-radius: calc(var(--radius) + 2px);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 0.16s ease;
+}
+
+.tarahum-float__cta:hover {
+  filter: brightness(1.08);
+}
+
+.tarahum-float__cta[disabled] {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.tarahum-float__error {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #b3261e;
+}
+
+.tarahum-float__pay {
+  display: grid;
+  gap: 0.45rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+}
+
+.tarahum-float__pay > span {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.tarahum-float__pay > div {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.tarahum-float__pay img {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Keep the floating tab clear of the WhatsApp bubble on desktop too */
+@media (min-width: 641px) {
+  .tarahum-float--start .tarahum-float__tab {
+    top: 38%;
+  }
+}
+
+
+/* ------------------------------------------- 4. donation progress rail ----
+   The percentage rides inside the filled part; the two figures sit under the
+   rail (donated on the start side, target on the end side). Overrides the
+   compiled rail styles, which are baked into styles.css.
+   ------------------------------------------------------------------------ */
+
+.tarahum-rail {
+  height: 30px;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+  background: var(--secondary);
+}
+
+.tarahum-rail--lg {
+  height: 34px;
+}
+
+.tarahum-rail > i {
+  display: flex;
+  align-items: center;
+  /* the badge hugs the leading edge of the fill (right in RTL) */
+  justify-content: flex-start;
+  height: 100%;
+  width: var(--pct);
+  /* wide enough that the percentage always fits, even at 0% */
+  min-width: 3.6rem;
+  padding-inline-start: 0.7rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand-forest, #186038), var(--primary));
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tarahum-rail > i > b {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.tarahum-rail-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.55rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.tarahum-rail-meta b {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.tarahum-rail-meta > span:last-child {
+  text-align: end;
+}
+
+
+/* ------------------------------------------------ 5. product gallery ------
+   Donation artwork is landscape; the upstream gallery frames it 3:4 and crops
+   with object-fit:cover, which cut the calligraphy off. Show the whole image.
+   -------------------------------------------------------------------------- */
+
+.product-gallery__slide > img {
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: var(--brand-cream, #f4f1ec);
+}
+
+/* ------------------------------------------------- 6. start-aligned head ---
+   Listing pages read better with a start-aligned title than the centred
+   section head used on the homepage bands.
+   -------------------------------------------------------------------------- */
+
+.tarahum-head--start {
+  text-align: start;
+  margin-inline: 0;
+  max-width: none;
+}
+
+.tarahum-head--start .tarahum-head__rule {
+  margin-inline: 0;
+}
+
+.tarahum-head--start h1 {
+  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2rem);
+  font-weight: 800;
+  color: var(--foreground);
+  margin: 0;
+}
+
+/* ==========================================================================
+   ختم «اكتملت فرصة التبرع»
+   يحل محل شارة «غير متوفر» الصغيرة التي كان إطار القوس يقصّها في الزاوية.
+   ========================================================================== */
+
+.tarahum-done {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+/* تعتيم الصورة خلف الختم حتى يُقرأ النص */
+.tarahum-done::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--foreground, #16241e) 42%, transparent);
+}
+
+@supports (backdrop-filter: saturate(0.5)) {
+  .tarahum-done::before {
+    backdrop-filter: saturate(0.5);
+  }
+}
+
+.tarahum-done__seal {
+  position: relative;
+  width: min(58%, 190px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 10%;
+  color: #fff;
+  background: var(--primary, #0f6b4f);
+  border: 2px solid color-mix(in srgb, var(--accent, #c79a3e) 85%, transparent);
+  box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.55);
+  transform: rotate(-6deg);
+}
+
+.tarahum-done--lg .tarahum-done__seal {
+  width: min(42%, 240px);
+}
+
+/* حلقة ذهبية داخلية — بهوية الثيم، لا نسخ من أي جهة أخرى */
+.tarahum-done__seal::before {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--accent, #c79a3e) 70%, transparent);
+}
+
+/* معيّن علوي صغير — نفس زخرفة عناوين الثيم */
+.tarahum-done__seal::after {
+  content: "";
+  position: absolute;
+  top: 6%;
+  inset-inline-start: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translateX(50%) rotate(45deg);
+  background: var(--accent, #c79a3e);
+  border-radius: 1px;
+}
+
+[dir="ltr"] .tarahum-done__seal::after {
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.tarahum-done__big {
+  display: block;
+  font-size: clamp(0.95rem, 0.6rem + 2.4vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.tarahum-done--lg .tarahum-done__big {
+  font-size: clamp(1.1rem, 0.8rem + 1.6vw, 1.75rem);
+}
+
+.tarahum-done__small {
+  display: block;
+  margin-top: 0.2em;
+  font-size: clamp(0.56rem, 0.4rem + 0.9vw, 0.8rem);
+  font-weight: 600;
+  opacity: 0.92;
+  line-height: 1.35;
+}
+
+.tarahum-done__store {
+  display: block;
+  margin-top: 0.35em;
+  font-size: clamp(0.48rem, 0.36rem + 0.6vw, 0.66rem);
+  font-weight: 500;
+  color: var(--accent, #c79a3e);
+}
+
+/* شريط ١٠٠٪ أسفل الصورة */
+.tarahum-done__bar {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  padding-inline: 0.75rem;
+  background: var(--primary, #0f6b4f);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+/* بديل زر «أعلمني عند التوفر» للحالات المكتملة */
+.tarahum-done-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 1.5px dashed color-mix(in srgb, var(--primary, #0f6b4f) 35%, transparent);
+  background: color-mix(in srgb, var(--primary, #0f6b4f) 7%, transparent);
+  color: var(--primary, #0f6b4f);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .tarahum-done__seal {
+    width: 64%;
+  }
+}

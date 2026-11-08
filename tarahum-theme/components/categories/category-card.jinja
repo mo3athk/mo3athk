@@ -1,0 +1,58 @@
+{#
+  Category Card Component — Tarahum identity
+
+  Displays a giving door as an arch panel with a name plate.
+
+  Image fallback chain (every category in this store has a NULL image, which is
+  the #1 cause of an empty-looking storefront):
+    platform image  →  shipped per-category tile (assets/images/categories/<id>.svg)
+                    →  generic branded tile (categories/default.svg)
+                    →  branded placeholder
+  The platform image always wins, so uploading one from the dashboard silently
+  replaces the shipped tile. The image element is NEVER hidden.
+
+  Variables:
+  - category: object (required) - Category object with id, slug, name, image, image_full_size
+  - index: number (optional) - Card index for lazy loading
+#}
+{% set card_index = index | default(0) %}
+{% set platform_img = category.image_full_size | default(category.image, true) %}
+{% set tile = ('images/categories/' ~ category.id ~ '.svg') | asset_url %}
+{% set generic_tile = 'images/categories/default.svg' | asset_url %}
+{% set placeholder = 'images/placeholder-image.svg' | asset_url %}
+
+<a
+  href="{{ url_for('category_details', category_id=category.id, slug=category.slug) }}"
+  class="group tarahum-panel flex flex-col"
+>
+  {# Category Image — arch-topped media frame #}
+  <div class="tarahum-frame relative aspect-square w-full overflow-hidden">
+    <img
+      {% if platform_img %}
+        src="{{ image_url(platform_img, w=640, q=80, f='auto') }}"
+        data-fallback-1="{{ tile }}"
+      {% else %}
+        src="{{ tile }}"
+        data-fallback-1="{{ generic_tile }}"
+      {% endif %}
+      data-fallback-2="{{ placeholder }}"
+      alt="{{ category.name }}"
+      class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+      {% if card_index > 3 %}loading="lazy"{% endif %}
+      onerror="var f=this.dataset.fallback1||this.dataset.fallback2;if(f){this.dataset.fallback1='';this.src=f;}else{this.onerror=null;}"
+    />
+    <span
+      class="pointer-events-none absolute inset-0"
+      style="background: linear-gradient(to top, color-mix(in srgb, var(--foreground) 50%, transparent), transparent 55%);"
+    ></span>
+  </div>
+
+  {# Name plate #}
+  <div class="flex flex-1 flex-col items-center gap-1 px-3 py-4 text-center">
+    <h3 class="text-foreground text-base font-bold tracking-tight md:text-lg">{{ category.name }}</h3>
+    {% if category.products_count is defined and category.products_count %}
+      <span class="text-muted text-xs">{{ category.products_count }} {{ _('cases') }}</span>
+    {% endif %}
+    <span class="tarahum-badge tarahum-badge--soft mt-2">{{ _('Donate now') }}</span>
+  </div>
+</a>

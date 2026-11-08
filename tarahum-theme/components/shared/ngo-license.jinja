@@ -1,0 +1,62 @@
+{#
+  Licence & transparency block.
+  Saudi registered charities must show their licence details, so this renders in
+  the footer on every page. Each row only appears once the merchant fills it in,
+  so the block never shows an empty or placeholder licence number.
+#}
+{% set lic_entity = settings.ngo_license_entity | default('', true) | trim %}
+{% set lic_number = settings.ngo_license_number | default('', true) | trim %}
+{% set lic_auth = settings.ngo_license_authority | default('', true) | trim %}
+{% set lic_tax = settings.ngo_license_tax_number | default('', true) | trim %}
+{% set lic_note = settings.ngo_license_note | default('', true) | trim %}
+{% set has_any = lic_entity or lic_number or lic_auth or lic_tax or lic_note %}
+
+{% if has_any %}
+  <div class="tarahum-license">
+    <div class="tarahum-license__head">
+      <span
+        class="tarahum-license__seal"
+        aria-hidden="true"
+      >
+        <img
+          src="{{ 'images/icon-shield.svg' | asset_url }}"
+          alt=""
+          width="26"
+          height="26"
+        />
+      </span>
+      <h3>{{ settings.ngo_license_title | default(_('A licensed, trusted entity'), true) }}</h3>
+    </div>
+
+    <dl class="tarahum-license__grid">
+      {% if lic_entity %}
+        <div>
+          <dt>{{ _('Registered entity') }}</dt>
+          <dd>{{ lic_entity }}</dd>
+        </div>
+      {% endif %}
+      {% if lic_number %}
+        <div>
+          <dt>{{ _('Licence number') }}</dt>
+          <dd>{{ lic_number }}</dd>
+        </div>
+      {% endif %}
+      {% if lic_auth %}
+        <div>
+          <dt>{{ _('Issued by') }}</dt>
+          <dd>{{ lic_auth }}</dd>
+        </div>
+      {% endif %}
+      {% if lic_tax %}
+        <div>
+          <dt>{{ _('Tax number') }}</dt>
+          <dd>{{ lic_tax }}</dd>
+        </div>
+      {% endif %}
+    </dl>
+
+    {% if lic_note %}
+      <p class="tarahum-license__note">{{ lic_note }}</p>
+    {% endif %}
+  </div>
+{% endif %}

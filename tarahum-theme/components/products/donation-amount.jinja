@@ -1,0 +1,102 @@
+{#
+  Donation amount selector — "خيارات مبلغ التبرع"
+
+  Blur-parity feature: preset amount chips + an optional custom amount, shown
+  inside the price box on the case page.
+
+  How it maps to Zid: donation products are priced per unit, and the donated
+  amount is unit_price × quantity. So the chips do not post anything of their
+  own — they drive the theme's real `#product-quantity` input (dispatching
+  `input`/`change` so variants.js, the sticky bar and the cart controller all
+  stay in sync). Everything keeps working if this component is disabled.
+
+  Unit price 1 SAR  → chip 100 sets quantity 100 (the common donation setup).
+  Unit price 100 SAR → chip 100 sets quantity 1, and the box shows the real
+  total so the donor is never shown a number they are not actually giving.
+
+  Variables:
+  - product: object (required)
+#}
+{% set da_on = settings.product_amounts_enabled | default(true, true) %}
+{% set da_class = product.product_class | default('', true) %}
+{% set is_donation = da_class in ['donation_item', 'crowdfunding_project'] %}
+
+{% if da_on and is_donation and product.in_stock %}
+  {% set unit_price = product.price | default(1, true) %}
+  {% set da_list = settings.product_amounts_list | default([], true) %}
+  {% set da_amounts = da_list if da_list | length > 0
+     else [{'amount': '10'}, {'amount': '50'}, {'amount': '100'}, {'amount': '500'}] %}
+  {% set cur = product.currency_symbol | default(session.currency, true) | trim %}
+  {% set allow_custom = settings.product_amounts_allow_custom | default(true, true) %}
+  {% set hide_qty = settings.product_amounts_hide_quantity | default(true, true) %}
+
+  <div
+    class="tarahum-amounts"
+    data-donation-amount
+    data-unit-price="{{ unit_price }}"
+    data-currency="{{ cur }}"
+    data-max="{{ product.quantity if not product.is_infinite and product.quantity > 0 else '' }}"
+    {% if hide_qty %}data-hide-quantity="1"{% endif %}
+  >
+    <div class="tarahum-amounts__head">
+      <span class="tarahum-amounts__title">
+        {{ settings.product_amounts_title | default(_('Donation amount'), true) }}
+      </span>
+      <span
+        class="tarahum-amounts__total"
+        data-amount-total
+        hidden
+      ></span>
+    </div>
+
+    <div
+      class="tarahum-amounts__chips"
+      role="group"
+      aria-label="{{ _('Donation amount') }}"
+    >
+      {% for row in da_amounts %}
+        {% set amt = row.amount | default('', true) | trim %}
+        {% if amt %}
+          <button
+            type="button"
+            class="tarahum-chip"
+            data-amount-chip="{{ amt }}"
+            aria-pressed="false"
+          >
+            <b>{{ amt }}</b>
+            <span>{{ cur }}</span>
+          </button>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if allow_custom %}
+      <div class="tarahum-amounts__custom">
+        <label
+          class="sr-only"
+          for="tarahum-amount-custom"
+        >
+          {{ _('Another amount') }}
+        </label>
+        <div class="tarahum-amounts__field">
+          <input
+            id="tarahum-amount-custom"
+            type="number"
+            min="{{ unit_price }}"
+            step="{{ unit_price }}"
+            inputmode="numeric"
+            placeholder="{{ _('Another amount') }}"
+            data-amount-custom
+          />
+          <span aria-hidden="true">{{ cur }}</span>
+        </div>
+      </div>
+    {% endif %}
+
+    <p
+      class="tarahum-amounts__hint"
+      data-amount-hint
+      hidden
+    ></p>
+  </div>
+{% endif %}

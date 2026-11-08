@@ -1,0 +1,1692 @@
+{
+  "name": {
+    "ar": "إعدادات التخطيط",
+    "en": "Layout Settings"
+  },
+  "groups": [
+    {
+      "id": "theme",
+      "icon": "fa fa-paint-brush",
+      "name": {
+        "ar": "ألوان الثيم",
+        "en": "Theme Colors"
+      },
+      "settings": [
+        {
+          "id": "primary",
+          "type": "color",
+          "label": {
+            "ar": "اللون الأساسي",
+            "en": "Primary Color"
+          },
+          "info": {
+            "ar": "أخضر العطاء — يستخدم في أزرار التبرع والعناوين",
+            "en": "Giving green — used for donate buttons and headings"
+          },
+          "default": "#065751"
+        },
+        {
+          "id": "primary_foreground",
+          "type": "color",
+          "label": {
+            "ar": "نص اللون الأساسي",
+            "en": "Primary Text Color"
+          },
+          "default": "#FFFFFF"
+        },
+        {
+          "id": "secondary",
+          "type": "color",
+          "label": {
+            "ar": "لون السطح",
+            "en": "Surface Color"
+          },
+          "default": "#EFEADF"
+        },
+        {
+          "id": "accent",
+          "type": "color",
+          "label": {
+            "ar": "لون التمييز",
+            "en": "Accent Color"
+          },
+          "info": {
+            "ar": "ذهبي دافئ — للزخارف وأشرطة الإنجاز",
+            "en": "Warm gold — for ornaments and progress bars"
+          },
+          "default": "#A88840"
+        },
+        {
+          "id": "background",
+          "type": "color",
+          "label": {
+            "ar": "خلفية الصفحة",
+            "en": "Page Background"
+          },
+          "default": "#F7F4EE"
+        },
+        {
+          "id": "foreground",
+          "type": "color",
+          "label": {
+            "ar": "لون النص",
+            "en": "Text Color"
+          },
+          "default": "#14231C"
+        },
+        {
+          "id": "muted",
+          "type": "color",
+          "label": {
+            "ar": "لون النص الثانوي",
+            "en": "Muted Text Color"
+          },
+          "default": "#5A6B62"
+        },
+        {
+          "id": "border",
+          "type": "color",
+          "label": {
+            "ar": "لون الحدود",
+            "en": "Border Color"
+          },
+          "default": "#E2DACB"
+        },
+        {
+          "id": "input",
+          "type": "color",
+          "label": {
+            "ar": "لون حدود الإدخال",
+            "en": "Input Border Color"
+          },
+          "default": "#5A6B62"
+        },
+        {
+          "id": "ring",
+          "type": "color",
+          "label": {
+            "ar": "لون حلقة التركيز",
+            "en": "Focus Ring Color"
+          },
+          "default": "#065751"
+        },
+        {
+          "id": "radius",
+          "type": "range",
+          "label": {
+            "ar": "نصف قطر الحواف",
+            "en": "Border Radius"
+          },
+          "min": 0,
+          "max": 16,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "brand_deep",
+          "label": {
+            "ar": "الأخضر الغامق (الأشرطة)",
+            "en": "Deep green (bands)"
+          },
+          "default": "#0B4A40"
+        },
+        {
+          "type": "color",
+          "id": "brand_forest",
+          "label": {
+            "ar": "أخضر الهوية",
+            "en": "Forest green"
+          },
+          "default": "#186038"
+        },
+        {
+          "type": "color",
+          "id": "brand_gold_soft",
+          "label": {
+            "ar": "الذهبي الفاتح",
+            "en": "Soft gold"
+          },
+          "default": "#C9AE6E"
+        },
+        {
+          "type": "color",
+          "id": "brand_cream",
+          "label": {
+            "ar": "لون الكريمي",
+            "en": "Cream"
+          },
+          "default": "#F4F1EC"
+        },
+        {
+          "type": "color",
+          "id": "brand_sand",
+          "label": {
+            "ar": "لون الرملي",
+            "en": "Sand"
+          },
+          "default": "#E7DFCD"
+        }
+      ]
+    },
+    {
+      "id": "font",
+      "icon": "fa fa-font",
+      "name": {
+        "ar": "الخط",
+        "en": "Font"
+      },
+      "settings": [
+        {
+          "id": "family",
+          "type": "select",
+          "label": {
+            "ar": "نوع الخط",
+            "en": "Font Family"
+          },
+          "default": "Tajawal",
+          "options": [
+            {
+              "label": {
+                "ar": "Tajawal (موصى به)",
+                "en": "Tajawal (recommended)"
+              },
+              "value": "Tajawal"
+            },
+            {
+              "label": {
+                "ar": "Cairo",
+                "en": "Cairo"
+              },
+              "value": "Cairo"
+            },
+            {
+              "label": {
+                "ar": "Almarai",
+                "en": "Almarai"
+              },
+              "value": "Almarai"
+            },
+            {
+              "label": {
+                "ar": "IBM Arabic",
+                "en": "IBM Arabic"
+              },
+              "value": "IBM+Plex+Sans+Arabic"
+            },
+            {
+              "label": {
+                "ar": "Amiri",
+                "en": "Amiri"
+              },
+              "value": "Amiri"
+            },
+            {
+              "label": {
+                "ar": "Noto Kufi Arabic",
+                "en": "Noto Kufi Arabic"
+              },
+              "value": "Noto+Kufi+Arabic"
+            },
+            {
+              "label": {
+                "ar": "Changa",
+                "en": "Changa"
+              },
+              "value": "Changa"
+            },
+            {
+              "label": {
+                "ar": "Mada",
+                "en": "Mada"
+              },
+              "value": "Mada"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "icon": "fa fa-home",
+      "name": {
+        "ar": "الصفحة الرئيسية",
+        "en": "Homepage"
+      },
+      "settings": [
+        {
+          "id": "slider_enabled",
+          "type": "checkbox",
+          "label": {
+            "ar": "إظهار سلايدر البانرات",
+            "en": "Show banner slider"
+          },
+          "default": true
+        },
+        {
+          "id": "slides",
+          "type": "list",
+          "label": {
+            "ar": "شرائح السلايدر",
+            "en": "Slider slides"
+          },
+          "info": {
+            "ar": "المقاس المفضل: 1500 × 700 بكسل. لو تركتها فاضية بتظهر شرائح الثيم الجاهزة.",
+            "en": "Preferred size: 1500 × 700 px. Leave empty to use the theme's shipped slides."
+          },
+          "settings": [
+            {
+              "id": "image",
+              "type": "image",
+              "label": {
+                "ar": "الصورة (سطح المكتب)",
+                "en": "Image (Desktop)"
+              },
+              "info": {
+                "ar": "1500 × 700 بكسل",
+                "en": "1500 × 700 px"
+              }
+            },
+            {
+              "id": "image_mobile",
+              "type": "image",
+              "label": {
+                "ar": "الصورة (الجوال)",
+                "en": "Image (Mobile)"
+              },
+              "info": {
+                "ar": "414 × 700 بكسل",
+                "en": "414 × 700 px"
+              }
+            },
+            {
+              "id": "title",
+              "type": "text",
+              "label": {
+                "ar": "العنوان",
+                "en": "Title"
+              }
+            },
+            {
+              "id": "subtitle",
+              "type": "text",
+              "label": {
+                "ar": "الوصف",
+                "en": "Subtitle"
+              }
+            },
+            {
+              "id": "cta_text",
+              "type": "text",
+              "label": {
+                "ar": "نص الزر",
+                "en": "Button text"
+              }
+            },
+            {
+              "id": "url",
+              "type": "url",
+              "label": {
+                "ar": "رابط الشريحة",
+                "en": "Slide link"
+              }
+            }
+          ]
+        },
+        {
+          "id": "hero_title",
+          "type": "text",
+          "label": {
+            "ar": "عنوان الواجهة",
+            "en": "Hero title"
+          },
+          "default": "صدقتك اليوم.. سترٌ لأسرة غدًا"
+        },
+        {
+          "id": "hero_subtitle",
+          "type": "textarea",
+          "label": {
+            "ar": "وصف الواجهة",
+            "en": "Hero subtitle"
+          },
+          "default": "صندوق التآخي والتراحم يوصل تبرّعك إلى الحالات الأشد احتياجًا، بشفافية كاملة ومتابعة لكل ريال."
+        },
+        {
+          "id": "hero_image",
+          "type": "image",
+          "label": {
+            "ar": "صورة الواجهة (سطح المكتب)",
+            "en": "Hero image (Desktop)"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 1500 × 700 بكسل",
+            "en": "Upload image 1500 × 700 px"
+          }
+        },
+        {
+          "id": "hero_image_mobile",
+          "type": "image",
+          "label": {
+            "ar": "صورة الواجهة (الجوال)",
+            "en": "Hero image (Mobile)"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 414 × 700 بكسل",
+            "en": "Upload image 414 × 700 px"
+          }
+        },
+        {
+          "id": "hero_cta_text",
+          "type": "text",
+          "label": {
+            "ar": "نص الزر الأساسي",
+            "en": "Primary button text"
+          },
+          "default": "تبرّع الآن"
+        },
+        {
+          "id": "hero_cta_url",
+          "type": "url",
+          "label": {
+            "ar": "رابط الزر الأساسي",
+            "en": "Primary button link"
+          }
+        },
+        {
+          "id": "hero_cta2_text",
+          "type": "text",
+          "label": {
+            "ar": "نص الزر الثانوي",
+            "en": "Secondary button text"
+          },
+          "default": "تصفّح الحالات"
+        },
+        {
+          "id": "hero_cta2_url",
+          "type": "url",
+          "label": {
+            "ar": "رابط الزر الثانوي",
+            "en": "Secondary button link"
+          }
+        },
+        {
+          "id": "marquee_text",
+          "type": "text",
+          "label": {
+            "ar": "الشريط المتحرك",
+            "en": "Marquee strip"
+          },
+          "default": "تبرّعك أمانة · متابعة لكل ريال · تقارير دورية · استقطاع شهري يبدأ من ريال واحد"
+        },
+        {
+          "id": "impact_enabled",
+          "type": "checkbox",
+          "label": {
+            "ar": "إظهار شريط الأثر (الأرقام)",
+            "en": "Show impact stats band"
+          },
+          "default": true
+        },
+        {
+          "id": "impact_title",
+          "type": "text",
+          "label": {
+            "ar": "عنوان شريط الأثر",
+            "en": "Impact band title"
+          },
+          "default": "أثرنا بالأرقام"
+        },
+        {
+          "id": "impact_stats",
+          "type": "list",
+          "label": {
+            "ar": "أرقام الأثر",
+            "en": "Impact stats"
+          },
+          "info": {
+            "ar": "حدّث الأرقام من هنا كل فترة",
+            "en": "Update these numbers periodically"
+          },
+          "settings": [
+            {
+              "id": "value",
+              "type": "text",
+              "label": {
+                "ar": "الرقم",
+                "en": "Value"
+              }
+            },
+            {
+              "id": "label",
+              "type": "text",
+              "label": {
+                "ar": "الوصف",
+                "en": "Label"
+              }
+            }
+          ],
+          "default": [
+            {
+              "value": "١٠٠٪",
+              "label": "من تبرعك يصل لمستحقه"
+            },
+            {
+              "value": "٢٤ ساعة",
+              "label": "متوسط وقت دراسة الحالة العاجلة"
+            },
+            {
+              "value": "١ ريال",
+              "label": "أقل مبلغ يبدأ به الاستقطاع الشهري"
+            },
+            {
+              "value": "دورية",
+              "label": "تقارير شفافية للمتبرعين"
+            }
+          ]
+        },
+        {
+          "id": "cases_title",
+          "type": "text",
+          "label": {
+            "ar": "عنوان قسم الحالات",
+            "en": "Cases section title"
+          },
+          "default": "حالات تنتظر يدك"
+        },
+        {
+          "id": "cases_subtitle",
+          "type": "text",
+          "label": {
+            "ar": "وصف قسم الحالات",
+            "en": "Cases section subtitle"
+          },
+          "default": "كل حالة موثّقة ومدروسة — اختر ما يلامس قلبك"
+        },
+        {
+          "type": "url",
+          "id": "cases_source",
+          "label": {
+            "ar": "مصدر الحالات المعروضة",
+            "en": "Where the cases come from"
+          },
+          "info": {
+            "ar": "اختر تصنيفًا لعرض حالاته فقط، أو اتركه فارغًا لعرض كل الحالات. لاختيار منتجات بعينها، أضف قسم «قائمة المنتجات» من محتوى الصفحة.",
+            "en": "Pick a category to show only its cases, or leave empty for all. To hand-pick products, add the \"Products\" section from page content."
+          }
+        },
+        {
+          "type": "select",
+          "id": "cases_max",
+          "label": {
+            "ar": "عدد الحالات المعروضة",
+            "en": "How many cases to show"
+          },
+          "options": [
+            {
+              "value": "3",
+              "label": {
+                "ar": "3",
+                "en": "3"
+              }
+            },
+            {
+              "value": "6",
+              "label": {
+                "ar": "6",
+                "en": "6"
+              }
+            },
+            {
+              "value": "9",
+              "label": {
+                "ar": "9",
+                "en": "9"
+              }
+            },
+            {
+              "value": "12",
+              "label": {
+                "ar": "12",
+                "en": "12"
+              }
+            }
+          ],
+          "default": "6"
+        },
+        {
+          "id": "categories_title",
+          "type": "text",
+          "label": {
+            "ar": "عنوان قسم أبواب التبرع",
+            "en": "Categories section title"
+          },
+          "default": "أبواب العطاء"
+        },
+        {
+          "id": "categories_subtitle",
+          "type": "text",
+          "label": {
+            "ar": "وصف قسم أبواب التبرع",
+            "en": "Categories section subtitle"
+          },
+          "default": "اختر الباب الذي تحب أن يجري أجره لك"
+        },
+        {
+          "id": "steps_enabled",
+          "type": "checkbox",
+          "label": {
+            "ar": "إظهار قسم «كيف تتبرع»",
+            "en": "Show \"How to donate\" section"
+          },
+          "default": true
+        },
+        {
+          "id": "steps_title",
+          "type": "text",
+          "label": {
+            "ar": "عنوان قسم كيف تتبرع",
+            "en": "How-to section title"
+          },
+          "default": "تبرّع في ثلاث خطوات"
+        },
+        {
+          "id": "steps",
+          "type": "list",
+          "label": {
+            "ar": "الخطوات",
+            "en": "Steps"
+          },
+          "settings": [
+            {
+              "id": "title",
+              "type": "text",
+              "label": {
+                "ar": "عنوان الخطوة",
+                "en": "Step title"
+              }
+            },
+            {
+              "id": "text",
+              "type": "textarea",
+              "label": {
+                "ar": "شرح الخطوة",
+                "en": "Step description"
+              }
+            }
+          ],
+          "default": [
+            {
+              "title": "اختر حالة",
+              "text": "تصفّح الحالات الموثّقة أو أبواب العطاء واختر اللي يناسبك."
+            },
+            {
+              "title": "حدّد مبلغك",
+              "text": "تبرّع مرة وحدة، أو خلّه استقطاع شهري يجري أجره لك."
+            },
+            {
+              "title": "ادفع بأمان",
+              "text": "أكمل الدفع عبر قنوات آمنة معتمدة، ويوصلك إيصال تبرعك."
+            }
+          ]
+        },
+        {
+          "id": "promo1_image",
+          "type": "image",
+          "label": {
+            "ar": "البانر العريض الأول",
+            "en": "First wide banner"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 1200 × 500 بكسل",
+            "en": "Upload image 1200 × 500 px"
+          }
+        },
+        {
+          "id": "promo1_title",
+          "type": "text",
+          "label": {
+            "ar": "عنوان البانر الأول",
+            "en": "First banner title"
+          },
+          "default": "استقطاع شهري.. صدقة جارية لا تنقطع"
+        },
+        {
+          "id": "promo1_text",
+          "type": "text",
+          "label": {
+            "ar": "وصف البانر الأول",
+            "en": "First banner text"
+          },
+          "default": "خصّص مبلغًا بسيطًا كل شهر، ونحن نوصله لمستحقيه طوال السنة."
+        },
+        {
+          "id": "promo1_cta",
+          "type": "text",
+          "label": {
+            "ar": "نص زر البانر الأول",
+            "en": "First banner button"
+          },
+          "default": "ابدأ استقطاعك"
+        },
+        {
+          "id": "promo1_url",
+          "type": "url",
+          "label": {
+            "ar": "رابط البانر الأول",
+            "en": "First banner link"
+          }
+        },
+        {
+          "id": "promo2_image",
+          "type": "image",
+          "label": {
+            "ar": "البانر العريض الثاني",
+            "en": "Second wide banner"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 1200 × 500 بكسل",
+            "en": "Upload image 1200 × 500 px"
+          }
+        },
+        {
+          "id": "promo2_title",
+          "type": "text",
+          "label": {
+            "ar": "عنوان البانر الثاني",
+            "en": "Second banner title"
+          },
+          "default": "تبرّع سريع بمبلغ تختاره"
+        },
+        {
+          "id": "promo2_text",
+          "type": "text",
+          "label": {
+            "ar": "وصف البانر الثاني",
+            "en": "Second banner text"
+          },
+          "default": "ما عندك وقت تتصفح؟ تبرّع بأي مبلغ ونحن نوجّهه لأولى الحالات."
+        },
+        {
+          "id": "promo2_cta",
+          "type": "text",
+          "label": {
+            "ar": "نص زر البانر الثاني",
+            "en": "Second banner button"
+          },
+          "default": "تبرّع سريع"
+        },
+        {
+          "id": "promo2_url",
+          "type": "url",
+          "label": {
+            "ar": "رابط البانر الثاني",
+            "en": "Second banner link"
+          }
+        },
+        {
+          "id": "faq_enabled",
+          "type": "checkbox",
+          "label": {
+            "ar": "إظهار الأسئلة الشائعة بالرئيسية",
+            "en": "Show FAQ on homepage"
+          },
+          "default": true
+        },
+        {
+          "id": "faq_title",
+          "type": "text",
+          "label": {
+            "ar": "عنوان الأسئلة الشائعة",
+            "en": "FAQ title"
+          },
+          "default": "أسئلة يسألها المتبرعون"
+        },
+        {
+          "id": "faqs",
+          "type": "list",
+          "label": {
+            "ar": "الأسئلة",
+            "en": "Questions"
+          },
+          "settings": [
+            {
+              "id": "q",
+              "type": "text",
+              "label": {
+                "ar": "السؤال",
+                "en": "Question"
+              }
+            },
+            {
+              "id": "a",
+              "type": "textarea",
+              "label": {
+                "ar": "الإجابة",
+                "en": "Answer"
+              }
+            }
+          ],
+          "default": [
+            {
+              "q": "وين يروح تبرعي بالضبط؟",
+              "a": "كل تبرع يُخصص للحالة أو الباب اللي تختاره، وننشر تقارير دورية عن أوجه صرف المبالغ."
+            },
+            {
+              "q": "أقدر أتبرع بشكل شهري؟",
+              "a": "نعم — باب الاستقطاع الشهري يخليك تحدد مبلغًا يُخصم بشكل منتظم، يبدأ من ريال واحد."
+            },
+            {
+              "q": "وش طرق الدفع المتاحة؟",
+              "a": "تقدر تدفع بمدى والبطاقات الائتمانية وApple Pay عبر قنوات دفع آمنة معتمدة."
+            },
+            {
+              "q": "بيوصلني إيصال تبرع؟",
+              "a": "نعم — يوصلك إيصال على بريدك مباشرة بعد إتمام التبرع، وتلقاه في حسابك."
+            },
+            {
+              "q": "أقدر أتبرع نيابة عن شخص ثاني؟",
+              "a": "نعم — تقدر تتبرع نيابة عن قريب، حي أو متوفى، وتكتب الاسم عند إتمام التبرع."
+            }
+          ]
+        },
+        {
+          "id": "trust_title",
+          "type": "text",
+          "label": {
+            "ar": "عنوان شريط الثقة",
+            "en": "Trust row title"
+          },
+          "default": "ليش تتبرع معنا؟"
+        },
+        {
+          "id": "trust_items",
+          "type": "list",
+          "label": {
+            "ar": "عناصر الثقة",
+            "en": "Trust items"
+          },
+          "settings": [
+            {
+              "id": "icon",
+              "type": "image",
+              "label": {
+                "ar": "الأيقونة",
+                "en": "Icon"
+              },
+              "info": {
+                "ar": "200 × 200 بكسل بخلفية شفافة (اختياري)",
+                "en": "200 × 200 px transparent (optional)"
+              }
+            },
+            {
+              "id": "title",
+              "type": "text",
+              "label": {
+                "ar": "العنوان",
+                "en": "Title"
+              }
+            },
+            {
+              "id": "text",
+              "type": "text",
+              "label": {
+                "ar": "الوصف",
+                "en": "Description"
+              }
+            }
+          ],
+          "default": [
+            {
+              "title": "موثّقة ومدروسة",
+              "text": "كل حالة تُدرس ويُتحقق منها قبل نشرها."
+            },
+            {
+              "title": "تقارير واضحة",
+              "text": "ننشر أين ذهبت التبرعات، بشكل دوري."
+            },
+            {
+              "title": "دفع آمن",
+              "text": "قنوات دفع معتمدة تحمي بياناتك."
+            },
+            {
+              "title": "توصل لأهلها",
+              "text": "نوصل التبرع مباشرة للمستفيد."
+            }
+          ]
+        },
+        {
+          "id": "cta_title",
+          "type": "text",
+          "label": {
+            "ar": "عنوان الدعوة الختامية",
+            "en": "Closing CTA title"
+          },
+          "default": "لا تحقرنّ من المعروف شيئًا"
+        },
+        {
+          "id": "cta_text",
+          "type": "text",
+          "label": {
+            "ar": "وصف الدعوة الختامية",
+            "en": "Closing CTA text"
+          },
+          "default": "ريال واحد منك قد يكون سببًا في فرج أسرة كاملة. ابدأ الآن."
+        },
+        {
+          "id": "cta_button",
+          "type": "text",
+          "label": {
+            "ar": "نص زر الدعوة الختامية",
+            "en": "Closing CTA button"
+          },
+          "default": "تبرّع الآن"
+        },
+        {
+          "id": "cta_url",
+          "type": "url",
+          "label": {
+            "ar": "رابط الدعوة الختامية",
+            "en": "Closing CTA link"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ngo",
+      "icon": "fa fa-heart",
+      "name": {
+        "ar": "مميزات الجمعية",
+        "en": "NGO Features"
+      },
+      "settings": [
+        {
+          "id": "quick_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار شريط التبرع السريع",
+            "en": "Show quick-donate bar"
+          }
+        },
+        {
+          "id": "quick_title",
+          "type": "text",
+          "default": "تبرّع سريع",
+          "label": {
+            "ar": "عنوان شريط التبرع السريع",
+            "en": "Quick-donate title"
+          }
+        },
+        {
+          "id": "quick_subtitle",
+          "type": "text",
+          "default": "اختر مبلغًا وتبرّع في ثانية — بدون ما تتصفح",
+          "label": {
+            "ar": "وصف شريط التبرع السريع",
+            "en": "Quick-donate subtitle"
+          }
+        },
+        {
+          "id": "quick_product_id",
+          "type": "text",
+          "label": {
+            "ar": "رقم منتج التبرع السريع",
+            "en": "Quick-donate product ID"
+          },
+          "info": {
+            "ar": "انسخ رقم المنتج (ID) من رابط تعديل المنتج في لوحة زد. مهم: يشتغل صح إذا كان سعر المنتج ريال واحد، لأن الثيم يضيف الكمية بعدد الريالات (100 ريال = 100 قطعة). لو تركته فاضي، الأزرار توديك لصفحة الحالات.",
+            "en": "Copy the product ID from the product edit URL in the Zid dashboard. Important: this works when the product price is 1 SAR, because the theme adds quantity equal to the amount (100 SAR = 100 units). Leave empty and the buttons link to the cases page instead."
+          }
+        },
+        {
+          "id": "quick_amounts",
+          "type": "list",
+          "label": {
+            "ar": "المبالغ المقترحة",
+            "en": "Suggested amounts"
+          },
+          "settings": [
+            {
+              "id": "amount",
+              "type": "text",
+              "label": {
+                "ar": "المبلغ",
+                "en": "Amount"
+              }
+            }
+          ],
+          "default": [
+            {
+              "amount": "50"
+            },
+            {
+              "amount": "100"
+            },
+            {
+              "amount": "250"
+            },
+            {
+              "amount": "500"
+            }
+          ]
+        },
+        {
+          "id": "quick_note",
+          "type": "text",
+          "default": "كل ريال يوصل لمستحقه بإذن الله",
+          "label": {
+            "ar": "ملاحظة أسفل الشريط",
+            "en": "Note under the bar"
+          }
+        },
+        {
+          "id": "zakat_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار حاسبة الزكاة",
+            "en": "Show zakat calculator"
+          }
+        },
+        {
+          "id": "zakat_title",
+          "type": "text",
+          "default": "حاسبة الزكاة",
+          "label": {
+            "ar": "عنوان حاسبة الزكاة",
+            "en": "Zakat calculator title"
+          }
+        },
+        {
+          "id": "zakat_subtitle",
+          "type": "text",
+          "default": "احسب زكاة مالك في دقيقة، وأخرجها لمستحقيها",
+          "label": {
+            "ar": "وصف حاسبة الزكاة",
+            "en": "Zakat calculator subtitle"
+          }
+        },
+        {
+          "id": "zakat_nisab",
+          "type": "text",
+          "default": "0",
+          "label": {
+            "ar": "قيمة النصاب بالريال",
+            "en": "Nisab value in SAR"
+          },
+          "info": {
+            "ar": "النصاب = قيمة 85 جرام ذهب، ويتغير بتغير سعر الذهب. حدّثه من وقت لآخر. لو تركته صفر، الحاسبة تحسب الزكاة بدون تنبيه النصاب.",
+            "en": "Nisab = the value of 85 g of gold and changes with the gold price. Update it periodically. Leave it at 0 and the calculator skips the nisab check."
+          }
+        },
+        {
+          "id": "zakat_rate",
+          "type": "text",
+          "default": "2.5",
+          "label": {
+            "ar": "نسبة الزكاة %",
+            "en": "Zakat rate %"
+          }
+        },
+        {
+          "id": "zakat_note",
+          "type": "textarea",
+          "default": "هذي حاسبة استرشادية تساعدك على التقدير، وللحالات الخاصة راجع أهل العلم.",
+          "label": {
+            "ar": "تنويه أسفل الحاسبة",
+            "en": "Disclaimer under the calculator"
+          }
+        },
+        {
+          "id": "zakat_cta_text",
+          "type": "text",
+          "default": "تبرّع بزكاتك",
+          "label": {
+            "ar": "نص زر الحاسبة",
+            "en": "Calculator button text"
+          }
+        },
+        {
+          "id": "zakat_cta_url",
+          "type": "url",
+          "label": {
+            "ar": "رابط زر الحاسبة",
+            "en": "Calculator button link"
+          },
+          "info": {
+            "ar": "حط رابط تصنيف أو منتج الزكاة عندك",
+            "en": "Link to your zakat category or product"
+          }
+        },
+        {
+          "id": "donors_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار جدار المتبرعين",
+            "en": "Show donor wall"
+          }
+        },
+        {
+          "id": "donors_title",
+          "type": "text",
+          "default": "آخر المتبرعين",
+          "label": {
+            "ar": "عنوان جدار المتبرعين",
+            "en": "Donor wall title"
+          }
+        },
+        {
+          "id": "donors_subtitle",
+          "type": "text",
+          "default": "جزاهم الله خيرًا — وكن منهم",
+          "label": {
+            "ar": "وصف جدار المتبرعين",
+            "en": "Donor wall subtitle"
+          }
+        },
+        {
+          "id": "donors",
+          "type": "list",
+          "label": {
+            "ar": "المتبرعون",
+            "en": "Donors"
+          },
+          "info": {
+            "ar": "تحدّثها يدويًا من هنا. زد ما تعطي الثيم قائمة المتبرعين تلقائيًا، فاكتب الأسماء اللي تبي تعرضها (ويفضّل تاخذ إذنهم أو تكتب «فاعل خير»).",
+            "en": "You update this manually. Zid does not expose a live donor list to the theme, so enter the names you want to show (get their permission, or use an anonymous label)."
+          },
+          "settings": [
+            {
+              "id": "name",
+              "type": "text",
+              "label": {
+                "ar": "الاسم",
+                "en": "Name"
+              }
+            },
+            {
+              "id": "amount",
+              "type": "text",
+              "label": {
+                "ar": "المبلغ",
+                "en": "Amount"
+              }
+            },
+            {
+              "id": "note",
+              "type": "text",
+              "label": {
+                "ar": "ملاحظة",
+                "en": "Note"
+              }
+            }
+          ],
+          "default": [
+            {
+              "name": "فاعل خير",
+              "amount": "500",
+              "note": "صدقة جارية"
+            },
+            {
+              "name": "أم عبدالله",
+              "amount": "250",
+              "note": "عن والدتها"
+            },
+            {
+              "name": "فاعل خير",
+              "amount": "100",
+              "note": "تفريج كربة"
+            },
+            {
+              "name": "م. الخالد",
+              "amount": "1000",
+              "note": "استقطاع شهري"
+            }
+          ]
+        },
+        {
+          "id": "license_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار بلوك الترخيص والشفافية",
+            "en": "Show licence & transparency block"
+          }
+        },
+        {
+          "id": "license_title",
+          "type": "text",
+          "default": "جهة مرخّصة وموثوقة",
+          "label": {
+            "ar": "عنوان البلوك",
+            "en": "Block title"
+          }
+        },
+        {
+          "id": "license_entity",
+          "type": "text",
+          "label": {
+            "ar": "اسم الجهة كما في الترخيص",
+            "en": "Registered entity name"
+          }
+        },
+        {
+          "id": "license_number",
+          "type": "text",
+          "label": {
+            "ar": "رقم الترخيص",
+            "en": "Licence number"
+          },
+          "info": {
+            "ar": "رقم ترخيص الجمعية أو الصندوق",
+            "en": "Your association or fund licence number"
+          }
+        },
+        {
+          "id": "license_authority",
+          "type": "text",
+          "default": "المركز الوطني لتنمية القطاع غير الربحي",
+          "label": {
+            "ar": "الجهة المُرخِّصة",
+            "en": "Issuing authority"
+          }
+        },
+        {
+          "id": "license_tax_number",
+          "type": "text",
+          "label": {
+            "ar": "الرقم الضريبي",
+            "en": "Tax number"
+          }
+        },
+        {
+          "id": "license_note",
+          "type": "textarea",
+          "default": "جميع التبرعات تُصرف في أوجهها المعلنة، وتصدر تقارير دورية عن أوجه الصرف.",
+          "label": {
+            "ar": "نص الشفافية",
+            "en": "Transparency note"
+          }
+        },
+        {
+          "type": "checkbox",
+          "id": "float_enabled",
+          "label": {
+            "ar": "إظهار زر التبرع السريع العائم",
+            "en": "Show floating quick-donate button"
+          },
+          "info": {
+            "ar": "زر صغير ثابت على جانب الصفحة يفتح نافذة تبرع سريع في كل صفحات المتجر.",
+            "en": "A small fixed side button that opens a quick-donate dialog on every page."
+          },
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "float_label",
+          "label": {
+            "ar": "نص زر التبرع السريع",
+            "en": "Quick-donate button text"
+          },
+          "default": "التبرع السريع"
+        },
+        {
+          "type": "color",
+          "id": "float_color",
+          "label": {
+            "ar": "لون خلفية زر التبرع السريع",
+            "en": "Quick-donate button background"
+          },
+          "default": "#065751"
+        },
+        {
+          "type": "select",
+          "id": "float_position",
+          "label": {
+            "ar": "مكان الزر",
+            "en": "Button position"
+          },
+          "options": [
+            {
+              "value": "start",
+              "label": {
+                "ar": "يمين الصفحة",
+                "en": "Start side"
+              }
+            },
+            {
+              "value": "end",
+              "label": {
+                "ar": "يسار الصفحة",
+                "en": "End side"
+              }
+            }
+          ],
+          "default": "start"
+        },
+        {
+          "type": "image",
+          "id": "float_banner",
+          "label": {
+            "ar": "صورة البانر داخل النافذة",
+            "en": "Banner image inside the dialog"
+          },
+          "info": {
+            "ar": "المقاس المقترح 1200×600 بكسل.",
+            "en": "Suggested size 1200×600 px."
+          }
+        },
+        {
+          "type": "textarea",
+          "id": "float_message",
+          "label": {
+            "ar": "رسالة التبرع السريع",
+            "en": "Quick-donate message"
+          },
+          "default": "اختر المبلغ الذي تحب أن تتبرع به، وسيصل بإذن الله إلى الأسر الأشد حاجة."
+        },
+        {
+          "type": "list",
+          "id": "float_amounts",
+          "label": {
+            "ar": "مبالغ التبرع السريع",
+            "en": "Quick-donate amounts"
+          },
+          "info": {
+            "ar": "إذا تركتها فارغة تُستخدم المبالغ المقترحة أعلاه.",
+            "en": "Leave empty to reuse the suggested amounts above."
+          },
+          "settings": [
+            {
+              "type": "text",
+              "id": "amount",
+              "label": {
+                "ar": "المبلغ",
+                "en": "Amount"
+              }
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "float_show_payments",
+          "label": {
+            "ar": "إظهار طرق الدفع في نافذة التبرع السريع",
+            "en": "Show payment methods in the quick-donate dialog"
+          },
+          "default": true
+        },
+        {
+          "id": "seal_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار ختم «اكتملت فرصة التبرع»",
+            "en": "Show the completed-case seal"
+          },
+          "info": {
+            "ar": "يظهر فوق صورة الحالة المكتملة بدل شارة «غير متوفر» الصغيرة",
+            "en": "Shown over a completed case's image instead of the small out-of-stock badge"
+          }
+        },
+        {
+          "id": "seal_title",
+          "type": "text",
+          "default": "بعطائكم",
+          "label": {
+            "ar": "السطر الكبير في الختم",
+            "en": "Seal headline"
+          }
+        },
+        {
+          "id": "seal_subtitle",
+          "type": "text",
+          "default": "اكتملت فرصة التبرع",
+          "label": {
+            "ar": "السطر الصغير في الختم",
+            "en": "Seal subtitle"
+          }
+        },
+        {
+          "id": "seal_show_store",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار اسم الصندوق داخل الختم",
+            "en": "Show the fund's name inside the seal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "extras",
+      "icon": "fa fa-magic",
+      "name": {
+        "ar": "إضافات",
+        "en": "Extras"
+      },
+      "settings": [
+        {
+          "id": "splash_enabled",
+          "type": "checkbox",
+          "label": {
+            "ar": "شاشة الترحيب عند فتح المتجر",
+            "en": "Splash screen on first load"
+          },
+          "info": {
+            "ar": "تظهر مرة واحدة كل جلسة، وتختفي تلقائيًا خلال ثانيتين",
+            "en": "Shows once per session, auto-hides within ~2 seconds"
+          },
+          "default": true
+        },
+        {
+          "id": "whatsapp_number",
+          "type": "text",
+          "label": {
+            "ar": "رقم واتساب للتواصل",
+            "en": "WhatsApp number"
+          },
+          "info": {
+            "ar": "بصيغة دولية بدون + مثال: 966500000000 — اتركه فاضي لإخفاء الزر",
+            "en": "International format without + e.g. 966500000000 — leave empty to hide"
+          }
+        },
+        {
+          "id": "whatsapp_text",
+          "type": "text",
+          "label": {
+            "ar": "رسالة واتساب الجاهزة",
+            "en": "Prefilled WhatsApp message"
+          },
+          "default": "السلام عليكم، عندي استفسار عن التبرع"
+        },
+        {
+          "id": "donation_labels_enabled",
+          "type": "checkbox",
+          "label": {
+            "ar": "استخدام مصطلحات التبرع بدل مصطلحات البيع",
+            "en": "Use donation wording instead of shop wording"
+          },
+          "info": {
+            "ar": "يحوّل «أضف للسلة» إلى «تبرّع الآن» و«السلة» إلى «سلة التبرعات»",
+            "en": "Turns \"Add to cart\" into \"Donate now\" and \"Cart\" into \"Donation basket\""
+          },
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "product_card",
+      "icon": "fa fa-th-large",
+      "name": {
+        "ar": "بطاقة الحالة",
+        "en": "Case Card"
+      },
+      "settings": [
+        {
+          "id": "columns_desktop",
+          "type": "select",
+          "label": {
+            "ar": "عدد الأعمدة (سطح المكتب)",
+            "en": "Columns (Desktop)"
+          },
+          "options": [
+            {
+              "value": "2",
+              "label": {
+                "ar": "2 أعمدة",
+                "en": "2 Columns"
+              }
+            },
+            {
+              "value": "3",
+              "label": {
+                "ar": "3 أعمدة",
+                "en": "3 Columns"
+              }
+            },
+            {
+              "value": "4",
+              "label": {
+                "ar": "4 أعمدة",
+                "en": "4 Columns"
+              }
+            },
+            {
+              "value": "5",
+              "label": {
+                "ar": "5 أعمدة",
+                "en": "5 Columns"
+              }
+            },
+            {
+              "value": "6",
+              "label": {
+                "ar": "6 أعمدة",
+                "en": "6 Columns"
+              }
+            }
+          ],
+          "default": "3"
+        },
+        {
+          "id": "columns_mobile",
+          "type": "select",
+          "label": {
+            "ar": "عدد الأعمدة (موبايل)",
+            "en": "Columns (Mobile)"
+          },
+          "options": [
+            {
+              "value": "1",
+              "label": {
+                "ar": "1 عمود",
+                "en": "1 Column"
+              }
+            },
+            {
+              "value": "2",
+              "label": {
+                "ar": "2 أعمدة",
+                "en": "2 Columns"
+              }
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "id": "image_aspect_ratio",
+          "type": "select",
+          "label": {
+            "ar": "نسبة أبعاد الصورة",
+            "en": "Image Aspect Ratio"
+          },
+          "options": [
+            {
+              "value": "adapt",
+              "label": {
+                "ar": "تكيّف مع الصورة",
+                "en": "Adapt to image"
+              }
+            },
+            {
+              "value": "portrait",
+              "label": {
+                "ar": "طولي (3:4)",
+                "en": "Portrait (3:4)"
+              }
+            },
+            {
+              "value": "square",
+              "label": {
+                "ar": "مربع (1:1)",
+                "en": "Square (1:1)"
+              }
+            }
+          ],
+          "default": "square"
+        },
+        {
+          "type": "checkbox",
+          "id": "cta_to_page",
+          "label": {
+            "ar": "زر البطاقة يفتح صفحة الحالة",
+            "en": "Card button opens the case page"
+          },
+          "info": {
+            "ar": "مفعّل افتراضيًا في متاجر التبرع: الضغط ينقل المتبرع لصفحة الحالة ليختار المبلغ، بدل إضافة ريال واحد للسلة مباشرة.",
+            "en": "On by default for donation stores: the click takes the donor to the case page to choose an amount, instead of adding 1 SAR straight to the cart."
+          },
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "name": {
+        "ar": "صفحة الحالة / التبرع",
+        "en": "Donation page"
+      },
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "amounts_enabled",
+          "label": {
+            "ar": "إظهار خيارات مبلغ التبرع داخل صندوق السعر",
+            "en": "Show donation amount options in the price box"
+          },
+          "info": {
+            "ar": "تظهر أزرار مبالغ جاهزة + حقل «مبلغ آخر» في صفحة الحالة، وتضبط الكمية تلقائيًا.",
+            "en": "Preset amount chips + a custom field on the case page; they set the quantity automatically."
+          },
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "amounts_title",
+          "label": {
+            "ar": "عنوان خيارات المبلغ",
+            "en": "Amount options title"
+          },
+          "default": "مبلغ التبرع"
+        },
+        {
+          "type": "list",
+          "id": "amounts_list",
+          "label": {
+            "ar": "المبالغ الجاهزة",
+            "en": "Preset amounts"
+          },
+          "settings": [
+            {
+              "type": "text",
+              "id": "amount",
+              "label": {
+                "ar": "المبلغ",
+                "en": "Amount"
+              }
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "amounts_allow_custom",
+          "label": {
+            "ar": "السماح بإدخال مبلغ آخر",
+            "en": "Allow a custom amount"
+          },
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "amounts_hide_quantity",
+          "label": {
+            "ar": "إخفاء حقل الكمية الأصلي",
+            "en": "Hide the raw quantity field"
+          },
+          "info": {
+            "ar": "يُنصح بتفعيله في متاجر التبرع لأن الكمية = المبلغ.",
+            "en": "Recommended for donation stores where quantity equals the amount."
+          },
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_price",
+          "label": {
+            "ar": "إخفاء سعر الوحدة في صفحة الحالة",
+            "en": "Hide the unit price on the case page"
+          },
+          "info": {
+            "ar": "يُنصح بإخفائه في متاجر التبرع لأن المتبرع يختار المبلغ بنفسه.",
+            "en": "Recommended for donation stores where the donor picks the amount."
+          },
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_sku",
+          "label": {
+            "ar": "إخفاء رقم SKU في صفحة الحالة",
+            "en": "Hide the SKU on the case page"
+          },
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "sold_label",
+          "label": {
+            "ar": "عبارة عدّاد المساهمات",
+            "en": "Contributions counter label"
+          },
+          "info": {
+            "ar": "يظهر بعدها عدد مرات الشراء، مثال: عدد مرات المساهمة 11",
+            "en": "The purchase count is appended, e.g. \"عدد مرات المساهمة 11\""
+          },
+          "default": "عدد مرات المساهمة"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_sold",
+          "label": {
+            "ar": "إظهار عدّاد المساهمات",
+            "en": "Show the contributions counter"
+          },
+          "info": {
+            "ar": "مطفأ افتراضيًا: زد لا يوفّر عدد المتبرعين للثيم، والرقم المتاح هو مجموع الكميات (= المبلغ) وهو ظاهر أصلاً على شريط الأثر.",
+            "en": "Off by default: Zid does not expose a donor count to themes; the only figure available is the sum of units (= the amount), already shown on the rail."
+          },
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "donors_metafield",
+          "label": {
+            "ar": "اسم حقل «عدد المتبرعين» في المنتج",
+            "en": "Product metafield holding the donor count"
+          },
+          "info": {
+            "ar": "أنشئ حقلًا مخصصًا بهذا الاسم على المنتج واكتب فيه عدد المتبرعين، ويظهر بدل مجموع الكميات.",
+            "en": "Create a product metafield with this name and enter the donor count; it replaces the units figure."
+          },
+          "default": "عدد المتبرعين"
+        },
+        {
+          "type": "checkbox",
+          "id": "sold_counts_units",
+          "label": {
+            "ar": "في حال عدم وجود الحقل: اعرض مجموع الكميات",
+            "en": "If that field is absent: show the sum of units instead"
+          },
+          "info": {
+            "ar": "غير مُستحسن — الرقم يمثل المبلغ وليس عدد الأشخاص.",
+            "en": "Not recommended — that number is the amount, not a headcount."
+          },
+          "default": false
+        }
+      ]
+    }
+  ]
+}
