@@ -104,7 +104,7 @@
 
   {# ============================ 2. Marquee strip ============================ #}
   {% set marquee = settings.home_marquee_text | default(_('Your donation is a trust · Every riyal is tracked · Periodic reports · Monthly deduction from one riyal'), true) %}
-  {% if marquee %}
+  {% if marquee and settings.home_marquee_enabled | default(true) %}
     <div
       class="tarahum-marquee"
       aria-hidden="true"
@@ -122,7 +122,8 @@
   {# ============================ 3. Brand hero band ============================ #}
   {% set hero_img = settings.home_hero_image | default('images/hero-1500x700.jpg' | asset_url, true) %}
   {% set hero_img_m = settings.home_hero_image_mobile | default('images/hero-mobile-414x700.jpg' | asset_url, true) %}
-  <section class="tarahum-hero tarahum-hero--light tarahum-pattern">
+  {% if settings.home_hero_enabled | default(true) %}
+<section class="tarahum-hero tarahum-hero--light tarahum-pattern">
     <picture>
       <source
         media="(max-width: 767px)"
@@ -159,6 +160,7 @@
       </div>
     </div>
   </section>
+  {% endif %}
 
   {# ============================ 4. Impact stats ============================ #}
   {% if settings.home_impact_enabled | default(true) %}
@@ -194,7 +196,8 @@
   {% endif %}
 
   {# ============================ 5. Cases (hydrated) ============================ #}
-  <section
+  {% if settings.home_cases_enabled | default(true) %}
+<section
     class="tarahum-band px-4 md:px-16"
     data-mf-home-section
     hidden
@@ -231,9 +234,11 @@
       </div>
     </div>
   </section>
+  {% endif %}
 
   {# ============================ 6. Giving doors (categories, hydrated) ============================ #}
-  <section
+  {% if settings.home_categories_enabled | default(true) %}
+<section
     class="tarahum-band tarahum-band--tint px-4 md:px-16"
     data-mf-home-section
     hidden
@@ -257,6 +262,7 @@
       </div>
     </div>
   </section>
+  {% endif %}
 
   {# ============================ 7. How to donate ============================ #}
   {% if settings.home_steps_enabled | default(true) %}
@@ -288,7 +294,8 @@
 
   {# ============================ 8. Wide promo 1 ============================ #}
   {% set promo1 = settings.home_promo1_image | default('images/promo-1-1200x500.jpg' | asset_url, true) %}
-  <section class="px-4 pb-4 md:px-16">
+  {% if settings.home_promo1_enabled | default(true) %}
+<section class="px-4 pb-4 md:px-16">
     <div class="theme-container">
       <div class="tarahum-promo">
         <img
@@ -311,13 +318,15 @@
       </div>
     </div>
   </section>
+  {% endif %}
 
   {# ============================ 9. Merchant-added sections ============================ #}
   {% template_components %}
 
   {# ============================ 10. Wide promo 2 ============================ #}
   {% set promo2 = settings.home_promo2_image | default('images/promo-2-1200x500.jpg' | asset_url, true) %}
-  <section class="px-4 py-4 md:px-16">
+  {% if settings.home_promo2_enabled | default(true) %}
+<section class="px-4 py-4 md:px-16">
     <div class="theme-container">
       <div class="tarahum-promo">
         <img
@@ -340,6 +349,7 @@
       </div>
     </div>
   </section>
+  {% endif %}
 
   {# ============================ 10b. Zakat calculator ============================ #}
   {% if settings.ngo_zakat_enabled | default(true) %}
@@ -388,7 +398,8 @@
     {'icon': 'images/icon-hands.svg' | asset_url, 'title': _('It reaches its people'), 'text': _('We deliver the donation directly to the beneficiary.')}
   ] %}
   {% set trust = settings.home_trust_items if settings.home_trust_items and settings.home_trust_items | length > 0 else shipped_trust %}
-  <section class="tarahum-band px-4 md:px-16">
+  {% if settings.home_trust_enabled | default(true) %}
+<section class="tarahum-band px-4 md:px-16">
     <div class="theme-container">
       <div class="tarahum-head">
         <span class="tarahum-head__eyebrow">{{ _('Trust') }}</span>
@@ -416,9 +427,11 @@
       </div>
     </div>
   </section>
+  {% endif %}
 
   {# ============================ 13. Closing CTA ============================ #}
-  <section class="px-4 pb-16 md:px-16">
+  {% if settings.home_cta_enabled | default(true) %}
+<section class="px-4 pb-16 md:px-16">
     <div class="theme-container">
       <div class="tarahum-cta tarahum-pattern">
         <h2>{{ settings.home_cta_title | default(_('Do not belittle any act of kindness'), true) }}</h2>
@@ -432,6 +445,7 @@
       </div>
     </div>
   </section>
+  {% endif %}
 {% endblock %}
 
 {% block footer_scripts %}

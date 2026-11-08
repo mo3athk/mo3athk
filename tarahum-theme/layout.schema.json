@@ -335,6 +335,15 @@
           ]
         },
         {
+          "id": "hero_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار الواجهة التعريفية",
+            "en": "Show the brand hero band"
+          }
+        },
+        {
           "id": "hero_title",
           "type": "text",
           "label": {
@@ -408,6 +417,15 @@
           "label": {
             "ar": "رابط الزر الثانوي",
             "en": "Secondary button link"
+          }
+        },
+        {
+          "id": "marquee_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار الشريط المتحرك",
+            "en": "Show the marquee strip"
           }
         },
         {
@@ -486,6 +504,15 @@
           ]
         },
         {
+          "id": "cases_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار قسم الحالات",
+            "en": "Show the cases section"
+          }
+        },
+        {
           "id": "cases_title",
           "type": "text",
           "label": {
@@ -553,6 +580,15 @@
             }
           ],
           "default": "6"
+        },
+        {
+          "id": "categories_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار قسم أبواب العطاء",
+            "en": "Show the giving-doors section"
+          }
         },
         {
           "id": "categories_title",
@@ -631,6 +667,15 @@
           ]
         },
         {
+          "id": "promo1_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار البانر العريض الأول",
+            "en": "Show the first wide banner"
+          }
+        },
+        {
           "id": "promo1_image",
           "type": "image",
           "label": {
@@ -675,6 +720,15 @@
           "label": {
             "ar": "رابط البانر الأول",
             "en": "First banner link"
+          }
+        },
+        {
+          "id": "promo2_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار البانر العريض الثاني",
+            "en": "Show the second wide banner"
           }
         },
         {
@@ -791,6 +845,15 @@
           ]
         },
         {
+          "id": "trust_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار شريط الثقة",
+            "en": "Show the trust row"
+          }
+        },
+        {
           "id": "trust_title",
           "type": "text",
           "label": {
@@ -854,6 +917,15 @@
               "text": "نوصل التبرع مباشرة للمستفيد."
             }
           ]
+        },
+        {
+          "id": "cta_enabled",
+          "type": "checkbox",
+          "default": true,
+          "label": {
+            "ar": "إظهار الدعوة الختامية",
+            "en": "Show the closing CTA"
+          }
         },
         {
           "id": "cta_title",
